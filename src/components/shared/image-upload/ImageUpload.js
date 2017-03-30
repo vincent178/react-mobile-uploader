@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './style.scss';
+import './style.css';
 
 
 export default class ImageUpload extends Component {
@@ -8,10 +8,9 @@ export default class ImageUpload extends Component {
   render() {
 
     return (
-      <div>
-        <div className="m-uploader">
-          <input />
-        </div>
+      <div className="m-uploader">
+        <input type="file"
+               accept="image/jpg,image/jpeg,image/png,image/gif" />
       </div>
     );
   }

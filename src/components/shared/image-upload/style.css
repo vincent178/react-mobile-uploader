@@ -1,28 +1,41 @@
 .m-uploader {
-  width: 84.75px;
-  height: 84.75px;
+    width: 84px;
+    height: 84px;
 
-  &:before {
-    width: 0.02rem;
-    height: 0.5rem;
+    position: relative;
+    background: white;
+}
+
+.m-uploader:before {
+    width: 1px;
+    height: 30px;
     content: " ";
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     background: #000;
-  }
+}
 
-  &:after {
-    width: .02rem;
-    height: .5rem;
+.m-uploader:after {
+    width: 30px;
+    height: 1px;
     content: " ";
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     background-color: #000;
-  }
-
 }
 
+.m-uploader input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+
+    width: 84px;
+    height: 84px;
+}
