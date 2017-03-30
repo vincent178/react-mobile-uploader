@@ -4,6 +4,8 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import NavigationBar from '../components/app/NavigationBar';
 import TabBar from '../components/app/TabBar';
 import NewGalleryContainer from './NewGalleryContainer';
+import ImageUploader from '../components/shared/ImageUploader';
+import ImageUpload from '../components/shared/image-upload/ImageUpload';
 import './App.css';
 
 injectTapEventPlugin();
@@ -21,6 +23,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <ImageUpload />
+        <ImageUploader />
         <TabBar />
       </div>
     );

@@ -6,9 +6,7 @@ import ImageUploader from '../components/shared/ImageUploader';
 export default class NewGalleryContainer extends Component {
 
   constructor(props) {
-
     super(props);
-
   }
 
   componentDidMount() {

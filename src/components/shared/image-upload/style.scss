@@ -1,0 +1,28 @@
+.m-uploader {
+  width: 84.75px;
+  height: 84.75px;
+
+  &:before {
+    width: 0.02rem;
+    height: 0.5rem;
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: #000;
+  }
+
+  &:after {
+    width: .02rem;
+    height: .5rem;
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #000;
+  }
+
+}
+
