@@ -9,9 +9,9 @@ export default class ImageItem extends Component {
 
     return (
       <div className="m-box-center m-box-center-a image-wrap image-container">
-        <button className="m-box-center m-box-center-a close-button">
+        <div className="m-box-center m-box-center-a close-button">
           <CloseIcon size={24} />
-        </button>
+        </div>
       </div>
     );
   }
