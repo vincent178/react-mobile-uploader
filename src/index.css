@@ -14,13 +14,3 @@ body {
   border-radius: .35rem;
   margin: .5%;
 }
-
-.m-box-center {
-    display: flex;
-    justify-content: center;
-}
-
-.m-box-center-a {
-    display: flex;
-    align-items: center;
-}
