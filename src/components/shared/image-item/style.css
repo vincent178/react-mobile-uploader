@@ -1,4 +1,4 @@
-.image-wrap {
+.image-container {
 
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@
   outline: none;
 }
 
-.image-container {
+.image-item {
   background-size: contain;
   background-position: center;
   width: 120px;
