@@ -1,0 +1,10 @@
+.text-input {
+  margin-top: .65625rem;
+  background-color: transparent;
+  outline: 0;
+  border: none;
+  font-size: 1rem;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}

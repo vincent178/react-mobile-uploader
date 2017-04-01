@@ -1,24 +1,35 @@
 .image-wrap {
-    margin: .5%;
-    position: relative;
-    overflow: hidden;
-    border-radius: .35rem;
-    box-sizing: border-box;
 
-    height: 240px;
-    width: 240px;
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+  border-radius: .35rem;
+  box-sizing: border-box;
+
+  height: 120px;
+  width: 120px;
 }
 
 .close-button {
-    position: absolute;
-    right: 0;
-    top: 0;
-    border-radius: .35rem;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: .35rem;
 
 
-    width: 30px;
-    height: 30px;
-    opacity: .4;
-    background: #000;
-    outline: none;
+  width: 30px;
+  height: 30px;
+  opacity: .4;
+  background: #000;
+  outline: none;
+}
+
+.image-container {
+  background-size: contain;
+  background-position: center;
+  width: 120px;
+  height: 120px;
 }

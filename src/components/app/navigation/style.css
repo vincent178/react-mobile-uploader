@@ -1,0 +1,14 @@
+.navigation-container {
+  display: flex;
+  align-items: center;
+
+  height: 54px;
+  background-color: #131418;
+}
+
+.navigation-logo {
+  background-image: url(../../../icons/logo.png);
+  background-size: cover;
+  height: 55px;
+  width: 55px;
+}

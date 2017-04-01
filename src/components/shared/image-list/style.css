@@ -1,4 +1,7 @@
 .image-list {
-    display: flex;
-    margin-bottom: 2.5rem;
+  display: flex;
+  margin-bottom: 2.5rem;
+
+  flex-wrap: wrap;
+
 }
