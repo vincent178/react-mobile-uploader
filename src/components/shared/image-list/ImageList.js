@@ -18,6 +18,9 @@ function clamp(n, min, max) {
   return Math.max(Math.min(n, max), min);
 }
 
+const springConfig = {stiffness: 300, damping: 50};
+const itemCount = 4;
+
 
 export default class ImageList extends Component {
   
@@ -25,113 +28,106 @@ export default class ImageList extends Component {
     super(props);
     
     this.state = {
-      mouseXY: [0, 0],
-      mouseCircleDelta: [0, 0], // difference between mouse and circle pos for x + y coords, for dragging
-      lastPress: null, // key of the last pressed component
+      topDeltaY: 0,
+      mouseY: 0,
       isPressed: false,
-      // order: range(count), // index: visual position. value: component key/id
+      originalPosOfLastPressed: 0,
+      order: range(itemCount)
     }
   }
   
   
-  // componentDidMount() {
-  //   window.addEventListener('touchmove', this.handleTouchMove);
-  //   window.addEventListener('touchend', this.handleMouseUp);
-  //   window.addEventListener('mousemove', this.handleMouseMove);
-  //   window.addEventListener('mouseup', this.handleMouseUp);
-  // }
-  //
-  // handleTouchStart(key, pressLocation, e) {
-  //   this.handleMouseDown(key, pressLocation, e.touches[0]);
-  // }
-  //
-  // handleTouchMove(e) {
-  //   e.preventDefault();
-  //   this.handleMouseMove(e.touches[0]);
-  // }
-  //
-  // handleMouseMove({pageX, pageY}) {
-  //   const {order, lastPress, isPressed, mouseCircleDelta: [dx, dy]} = this.state;
-  //   if (isPressed) {
-  //     const mouseXY = [pageX - dx, pageY - dy];
-  //     const col = clamp(Math.floor(mouseXY[0] / width), 0, 2);
-  //     const row = clamp(Math.floor(mouseXY[1] / height), 0, Math.floor(count / 3));
-  //     const index = row * 3 + col;
-  //     const newOrder = reinsert(order, order.indexOf(lastPress), index);
-  //     this.setState({mouseXY, order: newOrder});
-  //   }
-  // }
-  //
-  // handleMouseDown(key, [pressX, pressY], {pageX, pageY}) {
-  //   this.setState({
-  //     lastPress: key,
-  //     isPressed: true,
-  //     mouseCircleDelta: [pageX - pressX, pageY - pressY],
-  //     mouseXY: [pressX, pressY],
-  //   });
-  // }
-  
+  componentDidMount() {
+    window.addEventListener('touchmove', this.handleTouchMove.bind(this));
+    window.addEventListener('touchend', this.handleMouseUp.bind(this));
+    window.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    window.addEventListener('mouseup', this.handleMouseUp.bind(this));
+  }
+
+  handleTouchStart(key, pressLocation, e) {
+    this.handleMouseDown(key, pressLocation, e.touches[0]);
+  }
+
+  handleTouchMove(e) {
+    e.preventDefault();
+    this.handleMouseMove(e.touches[0]);
+  }
+
+
+  handleMouseDown(pos, pressY, {pageX, pageY}) {
+    console.log("FFFFFFFFFFFF");
+    this.setState({
+      topDeltaX: pageY - pressY,
+      mouseY: pressY,
+      isPressed: true,
+      originalPosOfLastPressed: pos
+    });
+  }
+
+  handleMouseMove({pageX, pageY}) {
+    const {isPressed, topDeltaY, order, originalPosOfLastPressed} = this.state;
+
+    if (isPressed) {
+      const mouseY = pageY - topDeltaY;
+      const currentColumn = clamp(Math.round(mouseY / 100), 0, itemCount - 1);
+
+      let newOrder = order;
+
+      if (currentColumn !== order.indexOf(originalPosOfLastPressed)) {
+        newOrder = reinsert(order, order.indexOf(originalPosOfLastPressed), currentColumn);
+      }
+
+      this.setState({mouseY, order: newOrder});
+    }
+  }
+
   handleMouseUp() {
-    this.setState({isPressed: false, mouseCircleDelta: [0, 0]});
+    this.setState({isPressed: false, topDeltaY: 0});
   }
 
   render() {
-    // const {order, lastPress, isPressed, mouseXY} = this.state;
-    //
-    // [1, 2, 3, 4].map((_, key) => {
-    //
-    //   let style;
-    //   let x;
-    //   let y;
-    //
-    //   if (key === lastPress && isPressed) {
-    //     [x, y] = mouseXY;
-    //     style = {
-    //       translateX: x,
-    //       translateY: y,
-    //       scale: spring(1.2, springSetting1),
-    //       boxShadow: spring((x - (3 * width - 50) / 2) / 15, springSetting1)
-    //     }
-    //   } else {
-    //     [x, y] = ;
-    //
-    //     style = {
-    //
-    //     }
-    //   }
-    //
-    //   return (
-    //     <Motion key={key} style={style}>
-    //       {
-    //         ({translateX, translateY, scale, boxShadow}) =>
-    //           <div
-    //             onMouseDown={this.handleMouseDown.bind(null, key, [x, y])}
-    //             onTouchStart={this.handleTouchStart.bind(null, key, [x, y])}
-    //             style={{
-    //               WebkitTransform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
-    //               transform: `translate3d(${translateX}px, ${translateY}px, 0) scale(${scale})`,
-    //               zIndex: key === lastPress ? 99 : visualPosition,
-    //               boxShadow: `${boxShadow}px 5px 5px rgba(0,0,0,0.5)`,
-    //             }}>
-    //             <ImageItem />
-    //           </div>
-    //       }
-    //
-    //     </Motion>
-    //   )
-    //
-    // });
-    
-    // console.log(document.querySelector('image-list').width);
+    const {mouseY, isPressed, originalPosOfLastPressed, order} = this.state;
   
     return (
       <div className="image-list">
-        <ImageItem/>
-        <ImageItem/>
-        <ImageItem/>
-        <ImageItem/>
-        
-        <ImageUpload/>
+        {range(itemCount).map(i => {
+
+          const style = originalPosOfLastPressed === i && isPressed ?
+            {
+              scale: spring(1.1, springConfig),
+              shadow: spring(1.6, springConfig),
+              y: mouseY
+            } :
+            {
+              scale: spring(1, springConfig),
+              shadow: spring(1, springConfig),
+              y: spring(order.indexOf(1) * 100, springConfig)
+            };
+
+          return (
+            <Motion style={style} key={i}>
+              {
+                ({scale, shadow, y}) =>
+                  <div
+                    onMouseDown={this.handleMouseDown.bind(this, i, y)}
+                    onTouchStart={this.handleTouchStart.bind(this, i, y)}
+                    style={{
+                      boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
+                      transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
+                      WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
+                      zIndex: i === originalPosOfLastPressed ? 99 : i
+                    }}>
+                    <ImageItem />
+                  </div>
+              }
+
+            </Motion>
+          )
+
+        })}
+
+
+        {/*<ImageUpload/>*/}
       </div>
     );
   }

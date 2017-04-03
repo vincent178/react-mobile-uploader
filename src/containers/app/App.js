@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavigationBar/>
-        <div className="m-content">
+        <div className="m-container">
           <TextInput/>
           <ImageList/>
         </div>
