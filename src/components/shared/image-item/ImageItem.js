@@ -19,6 +19,7 @@ export default class ImageItem extends Component {
     
     return (
       <div className="image-container m-image-box">
+        {/*<img src={image} />*/}
         <div className="image-item" style={imageStyle}></div>
         <div className="m-box-center m-box-center-a close-button">
           <CloseIcon size={24} />

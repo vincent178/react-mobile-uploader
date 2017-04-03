@@ -42,6 +42,11 @@ export default class ImageList extends Component {
     window.addEventListener('touchend', this.handleMouseUp.bind(this));
     window.addEventListener('mousemove', this.handleMouseMove.bind(this));
     window.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+
+  handleResize(e) {
+    console.log('this is resizing window');
   }
 
   handleTouchStart(key, pressLocation, e) {
@@ -87,44 +92,59 @@ export default class ImageList extends Component {
 
   render() {
     const {mouseY, isPressed, originalPosOfLastPressed, order} = this.state;
-  
+
     return (
       <div className="image-list">
-        {range(itemCount).map(i => {
+        {/*{range(itemCount).map(i => {*/}
 
-          const style = originalPosOfLastPressed === i && isPressed ?
-            {
-              scale: spring(1.1, springConfig),
-              shadow: spring(1.6, springConfig),
-              y: mouseY
-            } :
-            {
-              scale: spring(1, springConfig),
-              shadow: spring(1, springConfig),
-              y: spring(order.indexOf(1) * 100, springConfig)
-            };
+          {/*const style = originalPosOfLastPressed === i && isPressed ?*/}
+            {/*{*/}
+              {/*scale: spring(1.1, springConfig),*/}
+              {/*shadow: spring(1.6, springConfig),*/}
+              {/*y: mouseY*/}
+            {/*} :*/}
+            {/*{*/}
+              {/*scale: spring(1, springConfig),*/}
+              {/*shadow: spring(1, springConfig),*/}
+              {/*y: spring(order.indexOf(1) * 100, springConfig)*/}
+            {/*};*/}
 
-          return (
-            <Motion style={style} key={i}>
-              {
-                ({scale, shadow, y}) =>
-                  <div
-                    onMouseDown={this.handleMouseDown.bind(this, i, y)}
-                    onTouchStart={this.handleTouchStart.bind(this, i, y)}
-                    style={{
-                      boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,
-                      transform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                      WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,
-                      zIndex: i === originalPosOfLastPressed ? 99 : i
-                    }}>
-                    <ImageItem />
-                  </div>
-              }
+          {/*return (*/}
+            {/*<Motion style={style} key={i}>*/}
+              {/*{*/}
+                {/*({scale, shadow, y}) =>*/}
+                  {/*<div*/}
+                    {/*onMouseDown={this.handleMouseDown.bind(this, i, y)}*/}
+                    {/*onTouchStart={this.handleTouchStart.bind(this, i, y)}*/}
+                    {/*style={{*/}
+                      {/*boxShadow: `rgba(0, 0, 0, 0.2) 0px ${shadow}px ${2 * shadow}px 0px`,*/}
+                      {/*transform: `translate3d(0, ${y}px, 0) scale(${scale})`,*/}
+                      {/*WebkitTransform: `translate3d(0, ${y}px, 0) scale(${scale})`,*/}
+                      {/*zIndex: i === originalPosOfLastPressed ? 99 : i*/}
+                    {/*}}>*/}
+                    {/*<ImageItem />*/}
+                  {/*</div>*/}
+              {/*}*/}
 
-            </Motion>
-          )
+            {/*</Motion>*/}
+          {/*)*/}
 
-        })}
+        {/*})}*/}
+
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
+        <ImageItem/>
 
 
         {/*<ImageUpload/>*/}

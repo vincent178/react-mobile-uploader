@@ -22,3 +22,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.test-div {
+  position: absolute;
+  padding: 0 20% 20% 0;
+  border: 1px solid red;
+}
+
+.test-div2 {
+  padding-bottom: 100%;
+  height: 0;
+  width: 100%;
+
+  border: 1px solid green;
+}
