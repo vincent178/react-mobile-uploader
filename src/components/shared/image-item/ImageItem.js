@@ -14,9 +14,10 @@ export default class ImageItem extends Component {
   constructor(props) {
     super(props);
 
+    this._mouseXY = [0, 0];
+
     this.state = {
       isPressed: false,
-      mouseXY: [0, 0],
       mouseXYDelta: [0, 0]
     }
   }
@@ -24,59 +25,53 @@ export default class ImageItem extends Component {
   componentDidMount() {
     const node = findDOMNode(this);
 
-    node.addEventListener('touchstart', this.handleTouchStart.bind(this));
-    node.addEventListener('touchend', this.handleTouchEnd.bind(this));
+    node.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+    node.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
 
-    node.addEventListener('mousedown', this.handleMouseDown.bind(this));
-    node.addEventListener('mouseup', this.handleMouseUp.bind(this));
+    node.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
+    node.addEventListener('mouseup', this.handleMouseUp.bind(this), false);
 
-    node.addEventListener('touchmove', this.handleTouchMove.bind(this));
-    node.addEventListener('mousemove', this.handleMouseMove.bind(this));
+    node.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+    node.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
 
   }
 
   handleTouchStart(e) {
-    this.handleMouseDown(e);
+    this.handleMouseDown(e.touches[0]);
+    document.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
   }
 
   handleTouchMove(e) {
-    this.handleMouseMove(e);
+    this.handleMouseMove(e.touches[0]);
   }
 
   handleTouchEnd(e) {
-    this.handleMouseUp(e);
+    this.handleMouseUp(e.touches[0]);
   }
 
   handleMouseDown(e) {
     console.log('starting!');
 
-    console.log(e);
-
-    const touch = e.touches[0];
+    this._mouseXY = [e.pageX, e.pageY];
 
     this.setState({
-      isPressed: true,
-      mouseXY: [touch.pageX, touch.pageY]
+      isPressed: true
     });
   }
 
   handleMouseMove(e) {
-    console.log(e);
-    const { mouseXY, mouseXYDelta } = this.state;
-    const touch = e.touches[0];
-
-    console.log(touch.pageX);
+    console.log('moving');
 
     this.setState({
-      mouseXYDelta: [touch.pageX - mouseXY[0], touch.pageY - mouseXY[1]]
+      mouseXYDelta: [e.pageX - this._mouseXY[0], e.pageY - this._mouseXY[1]]
     })
   }
 
   handleMouseUp() {
     console.log('ending');
+    this._mouseXY = [0, 0];
     this.setState({
       isPressed: false,
-      mouseXY: [0, 0],
       mouseXYDelta: [0, 0]
     });
   }
@@ -93,10 +88,13 @@ export default class ImageItem extends Component {
     const { mouseXYDelta, isPressed } = this.state;
     
     return (
-      <div className="image-container m-image-box" style={{
-        transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(${isPressed ? 1.1 : 1.0})`,
-        zIndex: isPressed ? 99 : 1
-      }}>
+      <div
+        className="image-container m-image-box"
+        style={{
+          transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(${isPressed ? 1.1 : 1.0})`,
+          zIndex: isPressed ? 99 : 1
+        }}
+      >
 
         <div className="image-item" style={imageStyle}></div>
         <div className="m-box-center m-box-center-a close-button">
