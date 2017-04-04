@@ -56,40 +56,11 @@ export default class ImageList extends Component {
   }
 
   handleMouseMove(e) {
-    const { lastPress, isPressed, mouseXY } = this.state;
-    const size = document.querySelector('.image-list').offsetWidth / 3;
-    console.log(`size: ${size}`);
+    const { isPressed, mouseXY } = this.state;
 
     if (isPressed) {
-
-      const currentIndex = items.indexOf(lastPress);
-
-      console.log(`currentIndex: ${currentIndex}`);
-
-      const mouseXYDelta = [e.pageX - mouseXY[0], e.pageY - mouseXY[1]];
-
-      const xCount = Math.round(mouseXYDelta[0] / size);
-      const yCount = Math.round(mouseXYDelta[1] / size);
-
-      const newIndex = currentIndex + xCount + yCount * 3;
-
-      const col = MathUtil.clamp(Math.floor(mouseXYDelta[0] / size), 0, 2);
-      const row = MathUtil.clamp(Math.floor(mouseXYDelta[1] / size), 0, Math.floor( items.length / 3));
-
-      console.log(`x: ${mouseXYDelta[0]}`);
-      console.log(`xCount: ${xCount}`);
-      console.log(`col: ${col}`);
-
-      console.log(`y: ${mouseXYDelta[1]}`);
-      console.log(`row: ${row}`);
-      console.log(`yCount: ${yCount}`);
-
-      console.log(`newIndex: ${newIndex}`);
-
-      const newItems = ArrayUtil.reinsert(items, currentIndex, newIndex);
-
       this.setState({
-        mouseXYDelta
+        mouseXYDelta: [e.pageX - mouseXY[0], e.pageY - mouseXY[1]]
       });
     }
   }
@@ -114,16 +85,56 @@ export default class ImageList extends Component {
 
               let style = {};
 
-              if (id === lastPress && isPressed) {
-                style = {
-                  transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(1.1)`,
-                  zIndex: 99
+              if (isPressed) {
+
+                if (id === lastPress) {
+
+                  style = {
+                    transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(1.1)`,
+                    zIndex: 99
+                  }
+
+                } else {
+
+                  const size = document.querySelector('.image-list').offsetWidth / 3;
+
+                  const layout = items.map(n => {
+                    const row = Math.floor(n / 3);
+                    const col = n % 3;
+                    return [size * col, size * row];
+                  });
+
+                  const movingItemCurrentIndex = items.indexOf(lastPress);
+
+                  const xCount = Math.round(mouseXYDelta[0] / size);
+                  const yCount = Math.round(mouseXYDelta[1] / size);
+
+                  const movingItemNewIndex = movingItemCurrentIndex + xCount + yCount * 3;
+                  const newItems = ArrayUtil.reinsert(items, movingItemCurrentIndex, movingItemNewIndex);
+
+                  const idCurrentIndex = items.indexOf(id);
+                  const idNewIndex = newItems.indexOf(id);
+
+                  if (idCurrentIndex === idNewIndex) {
+
+                    style = {
+                      transform: `translate(0, 0) scale(1)`,
+                      zIndex: 0
+                    }
+
+                  } else {
+
+                    const x = layout[idNewIndex][0] - layout[idCurrentIndex][0];
+                    const y = layout[idNewIndex][1] - layout[idCurrentIndex][1];
+
+                    style = {
+                      transform: `translate(${x}px, ${y}px) scale(1)`,
+                      zIndex: 0,
+                      transition: 'all 0.2s ease'
+                    }
+                  }
                 }
-              } else {
-                style = {
-                  transform: `translate(0, 0) scale(1)`,
-                  zIndex: 0
-                }
+
               }
 
               return (
