@@ -3,3 +3,13 @@
   margin-bottom: 2.5rem;
   flex-wrap: wrap;
 }
+
+.image-item-wrap {
+  flex-basis: 32.3%;
+  margin: .5%;
+
+  touch-action: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

@@ -25,14 +25,14 @@ export default class ImageItem extends Component {
   componentDidMount() {
     const node = findDOMNode(this);
 
-    node.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
-    node.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
-
-    node.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
-    node.addEventListener('mouseup', this.handleMouseUp.bind(this), false);
-
-    node.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
-    node.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
+    // node.addEventListener('touchstart', this.handleTouchStart.bind(this), false);
+    // node.addEventListener('touchend', this.handleTouchEnd.bind(this), false);
+    //
+    // node.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
+    // node.addEventListener('mouseup', this.handleMouseUp.bind(this), false);
+    //
+    // node.addEventListener('touchmove', this.handleTouchMove.bind(this), false);
+    // node.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
 
   }
 
@@ -88,15 +88,8 @@ export default class ImageItem extends Component {
     const { mouseXYDelta, isPressed } = this.state;
     
     return (
-      <div
-        className="image-container m-image-box"
-        style={{
-          transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(${isPressed ? 1.1 : 1.0})`,
-          zIndex: isPressed ? 99 : 1
-        }}
-      >
-
-        <div className="image-item" style={imageStyle}></div>
+      <div className="image-container">
+        <div className="image-item m-square-box" style={imageStyle}></div>
         <div className="m-box-center m-box-center-a close-button">
           <CloseIcon size={24} />
         </div>
