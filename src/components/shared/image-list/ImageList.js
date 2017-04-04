@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import ImageItem from "../image-item/ImageItem";
 import ImageUpload from "../image-upload/ImageUpload";
+import MathUtil from "../../../utils/MathUtil";
 import "./style.css";
+import ArrayUtil from "../../../utils/ArrayUtil";
 
 const items = [0, 1, 2, 3, 4];
 
@@ -21,7 +23,8 @@ export default class ImageList extends Component {
       mouseXY: [0, 0],
       mouseXYDelta: [0, 0],
       lastPress: null,
-      isPressed: false
+      isPressed: false,
+      order: items
     }
   }
 
@@ -53,14 +56,45 @@ export default class ImageList extends Component {
   }
 
   handleMouseMove(e) {
-    const { mouseXY } = this.state;
+    const { lastPress, isPressed, mouseXY } = this.state;
+    const size = document.querySelector('.image-list').offsetWidth / 3;
+    console.log(`size: ${size}`);
 
-    this.setState({
-      mouseXYDelta: [e.pageX - mouseXY[0], e.pageY - mouseXY[1]]
-    });
+    if (isPressed) {
+
+      const currentIndex = items.indexOf(lastPress);
+
+      console.log(`currentIndex: ${currentIndex}`);
+
+      const mouseXYDelta = [e.pageX - mouseXY[0], e.pageY - mouseXY[1]];
+
+      const xCount = Math.round(mouseXYDelta[0] / size);
+      const yCount = Math.round(mouseXYDelta[1] / size);
+
+      const newIndex = currentIndex + xCount + yCount * 3;
+
+      const col = MathUtil.clamp(Math.floor(mouseXYDelta[0] / size), 0, 2);
+      const row = MathUtil.clamp(Math.floor(mouseXYDelta[1] / size), 0, Math.floor( items.length / 3));
+
+      console.log(`x: ${mouseXYDelta[0]}`);
+      console.log(`xCount: ${xCount}`);
+      console.log(`col: ${col}`);
+
+      console.log(`y: ${mouseXYDelta[1]}`);
+      console.log(`row: ${row}`);
+      console.log(`yCount: ${yCount}`);
+
+      console.log(`newIndex: ${newIndex}`);
+
+      const newItems = ArrayUtil.reinsert(items, currentIndex, newIndex);
+
+      this.setState({
+        mouseXYDelta
+      });
+    }
   }
 
-  handleMouseUp(e) {
+  handleMouseUp() {
     this.setState({
       isPressed: false,
       mouseXYDelta: [0, 0],
@@ -70,14 +104,13 @@ export default class ImageList extends Component {
 
   render() {
 
-    const { lastPress, isPressed, mouseXYDelta } = this.state;
+    const { order, lastPress, isPressed, mouseXYDelta } = this.state;
 
     return (
       <div className="image-list">
 
         {
-          items
-            .map( id => {
+          order.map(id => {
 
               let style = {};
 
@@ -88,6 +121,7 @@ export default class ImageList extends Component {
                 }
               } else {
                 style = {
+                  transform: `translate(0, 0) scale(1)`,
                   zIndex: 0
                 }
               }
@@ -100,7 +134,7 @@ export default class ImageList extends Component {
                   onTouchStart={this.handleTouchStart.bind(this, id)}
                   key={id}
                 >
-                  <ImageItem/>
+                  <ImageItem />
                 </div>
               );
 
