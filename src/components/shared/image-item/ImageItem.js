@@ -88,7 +88,7 @@ export default class ImageItem extends Component {
     const { mouseXYDelta, isPressed } = this.state;
     
     return (
-      <div className="image-container">
+      <div className="image-container m-small-radius">
         <div className="image-item m-square-box" style={imageStyle}></div>
         <div className="m-box-center m-box-center-a close-button">
           <CloseIcon size={24} />

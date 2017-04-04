@@ -1,9 +1,4 @@
 .image-container {
-
-  overflow: hidden;
-  border-radius: .3rem;
-  box-sizing: border-box;
-
   position: relative;
 }
 

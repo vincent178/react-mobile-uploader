@@ -19,3 +19,9 @@ body {
   height: 0;
   width: 100%;
 }
+
+.m-small-radius {
+  overflow: hidden;
+  border-radius: .3rem;
+  box-sizing: border-box;
+}

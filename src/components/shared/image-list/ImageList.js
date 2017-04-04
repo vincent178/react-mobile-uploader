@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import ImageItem from "../image-item/ImageItem";
-import "./style.css";
 import ImageUpload from "../image-upload/ImageUpload";
+import "./style.css";
 
 const items = [0, 1, 2, 3, 4];
 
@@ -58,8 +58,6 @@ export default class ImageList extends Component {
     this.setState({
       mouseXYDelta: [e.pageX - mouseXY[0], e.pageY - mouseXY[1]]
     });
-
-    console.log(this.state.mouseXYDelta);
   }
 
   handleMouseUp(e) {
@@ -96,7 +94,7 @@ export default class ImageList extends Component {
 
               return (
                 <div
-                  className="image-item-wrap"
+                  className="image-item-for-list-wrap"
                   style={style}
                   onMouseDown={this.handleMouseDown.bind(this, id)}
                   onTouchStart={this.handleTouchStart.bind(this, id)}
@@ -109,7 +107,7 @@ export default class ImageList extends Component {
             })
         }
 
-        <div className="image-item-wrap">
+        <div className="image-item-for-list-wrap">
           <ImageUpload />
         </div>
       </div>
