@@ -40,6 +40,7 @@ export default class ImageList extends Component {
   }
 
   handleTouchMove(e) {
+    if (e.type === 'touchmove') e.preventDefault();
     this.handleMouseMove(e.touches[0]);
   }
 
