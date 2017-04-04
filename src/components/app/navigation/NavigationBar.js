@@ -8,7 +8,7 @@ export default class NavigationBar extends Component {
     return (
       <div className="navigation-container">
         <div className="m-container">
-          <div className="navigation-logo"></div>
+          {/*<div className="navigation-logo"></div>*/}
         </div>
       </div>
     );
