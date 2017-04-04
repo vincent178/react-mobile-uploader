@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import ImageItem from "../image-item/ImageItem";
 import ImageUpload from "../image-upload/ImageUpload";
-import MathUtil from "../../../utils/MathUtil";
-import "./style.css";
 import ArrayUtil from "../../../utils/ArrayUtil";
+import "./style.css";
 
 const items = [0, 1, 2, 3, 4];
 
