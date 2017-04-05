@@ -6,7 +6,7 @@ export default class TextInput extends Component {
   render() {
     
     return (
-      <textarea placeholder="请输入标题" className="text-input"></textarea>
+      <textarea placeholder="请输入标题..." className="text-input" />
     );
   }
 }
