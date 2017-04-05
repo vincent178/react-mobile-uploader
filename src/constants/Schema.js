@@ -1,9 +1,9 @@
-import {schema, arrayOf} from 'normalizr';
+import {schema} from 'normalizr';
 
-export const TopicEntity = new schema.Entity('topics', {
+export const TopicEntity = new schema.Entity('topics', {}, {
   idAttribute: 'uuid'
 });
 
-export const PhotoEntity = new schema.Entity('photos', {
+export const PhotoEntity = new schema.Entity('photos', {}, {
   idAttribute: 'uuid'
 });

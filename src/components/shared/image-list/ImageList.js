@@ -1,13 +1,15 @@
-import React, {Component} from "react";
+import React, {Component, PropTypes} from "react";
 import ImageItem from "../image-item/ImageItem";
 import ImageUpload from "../image-upload/ImageUpload";
 import ArrayUtil from "../../../utils/ArrayUtil";
 import "./style.css";
 
-const items = [];
-
 export default class ImageList extends Component {
-  
+
+  static propTypes = {
+    photos: PropTypes.arrayOf(PropTypes.string)
+  };
+
   constructor(props) {
 
     super(props);
@@ -23,8 +25,7 @@ export default class ImageList extends Component {
       mouseXY: [0, 0],
       mouseXYDelta: [0, 0],
       lastPress: null,
-      isPressed: false,
-      order: items
+      isPressed: false
     }
   }
 
@@ -76,81 +77,85 @@ export default class ImageList extends Component {
 
   render() {
 
-    const { order, lastPress, isPressed, mouseXYDelta } = this.state;
+    const { lastPress, isPressed, mouseXYDelta } = this.state;
+    const { photo, entity } = this.props;
+    const items = photo.items;
 
     return (
       <div className="image-list">
 
         {
-          order.map(id => {
+          items.map(id => {
 
-              let style = {};
+            const photo = entity.photos[id];
 
-              if (isPressed) {
+            let style = {};
 
-                if (id === lastPress) {
+            if (isPressed) {
+
+              if (id === lastPress) {
+
+                style = {
+                  transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(1.1)`,
+                  zIndex: 99
+                }
+
+              } else {
+
+                const size = document.querySelector('.image-list').offsetWidth / 3;
+
+                const layout = items.map(n => {
+                  const row = Math.floor(n / 3);
+                  const col = n % 3;
+                  return [size * col, size * row];
+                });
+
+                const movingItemCurrentIndex = items.indexOf(lastPress);
+
+                const xCount = Math.round(mouseXYDelta[0] / size);
+                const yCount = Math.round(mouseXYDelta[1] / size);
+
+                const movingItemNewIndex = movingItemCurrentIndex + xCount + yCount * 3;
+                const newItems = ArrayUtil.reinsert(items, movingItemCurrentIndex, movingItemNewIndex);
+
+                const idCurrentIndex = items.indexOf(id);
+                const idNewIndex = newItems.indexOf(id);
+
+                if (idCurrentIndex === idNewIndex) {
 
                   style = {
-                    transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(1.1)`,
-                    zIndex: 99
+                    transform: `translate(0, 0) scale(1)`,
+                    zIndex: 0
                   }
 
                 } else {
 
-                  const size = document.querySelector('.image-list').offsetWidth / 3;
+                  const x = layout[idNewIndex][0] - layout[idCurrentIndex][0];
+                  const y = layout[idNewIndex][1] - layout[idCurrentIndex][1];
 
-                  const layout = items.map(n => {
-                    const row = Math.floor(n / 3);
-                    const col = n % 3;
-                    return [size * col, size * row];
-                  });
-
-                  const movingItemCurrentIndex = items.indexOf(lastPress);
-
-                  const xCount = Math.round(mouseXYDelta[0] / size);
-                  const yCount = Math.round(mouseXYDelta[1] / size);
-
-                  const movingItemNewIndex = movingItemCurrentIndex + xCount + yCount * 3;
-                  const newItems = ArrayUtil.reinsert(items, movingItemCurrentIndex, movingItemNewIndex);
-
-                  const idCurrentIndex = items.indexOf(id);
-                  const idNewIndex = newItems.indexOf(id);
-
-                  if (idCurrentIndex === idNewIndex) {
-
-                    style = {
-                      transform: `translate(0, 0) scale(1)`,
-                      zIndex: 0
-                    }
-
-                  } else {
-
-                    const x = layout[idNewIndex][0] - layout[idCurrentIndex][0];
-                    const y = layout[idNewIndex][1] - layout[idCurrentIndex][1];
-
-                    style = {
-                      transform: `translate(${x}px, ${y}px) scale(1)`,
-                      zIndex: 0,
-                      transition: 'all 0.2s ease'
-                    }
+                  style = {
+                    transform: `translate(${x}px, ${y}px) scale(1)`,
+                    zIndex: 0,
+                    transition: 'all 0.2s ease'
                   }
                 }
-
               }
 
-              return (
-                <div
-                  className="image-item-for-list-wrap"
-                  style={style}
-                  onMouseDown={this.handleMouseDown.bind(this, id)}
-                  onTouchStart={this.handleTouchStart.bind(this, id)}
-                  key={id}
-                >
-                  <ImageItem id={id} />
-                </div>
-              );
+            }
 
-            })
+            return (
+              <div
+                className="image-item-for-list-wrap"
+                style={style}
+                onMouseDown={this.handleMouseDown.bind(this, id)}
+                onTouchStart={this.handleTouchStart.bind(this, id)}
+                key={id}
+              >
+                <ImageItem id={id} photo={photo} />
+              </div>
+            );
+
+          })
         }
 
         <div className="image-item-for-list-wrap">

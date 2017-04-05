@@ -1,5 +1,3 @@
-'use strict';
-
 import { mergeWith } from 'lodash/object';
 
 const initialState = {
@@ -18,10 +16,8 @@ function customizer(objValue, srcValue) {
 export default function entity(state = initialState, action) {
 
   if (action.entities) {
-    return mergeWith({}, state, action.entity, customizer);
+    return mergeWith({}, state, action.entities, customizer);
   }
-
-  console.log(state);
 
   return state;
 }

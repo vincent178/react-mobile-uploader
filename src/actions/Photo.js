@@ -24,11 +24,13 @@ export function uploadPhoto(image, imageDataUrl) {
 
     const photo = {
       uuid,
-      data: imageDataUrl,
+      uri: imageDataUrl,
       loading: true
     };
 
-    dispatch(receivePhoto([photo], [PhotoEntity]));
+    const normalized = normalize([photo], [PhotoEntity]);
+
+    dispatch(receivePhoto(normalized.entities, normalized.result));
 
     return fetch('/photos.json', {
       method: 'POST',
@@ -40,6 +42,7 @@ export function uploadPhoto(image, imageDataUrl) {
 
         data.uuid = uuid;
         data.loading = false;
+        data.uri = data.image_url;
 
         const normalized = normalize([data], [PhotoEntity]);
         dispatch(receivePhoto(normalized.entities, normalized.result));

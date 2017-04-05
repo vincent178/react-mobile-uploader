@@ -1,5 +1,3 @@
-'use strict';
-
 import {RECEIVE_PHOTO} from '../constants/ActionType';
 
 const initialState = {

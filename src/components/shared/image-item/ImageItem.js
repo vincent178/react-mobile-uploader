@@ -14,19 +14,20 @@ const map = {
 export default class ImageItem extends Component {
   
   static propTypes = {
-    image: PropTypes.string
+    image: PropTypes.string,
+    photo: PropTypes.object
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    
+
+    const {photo} = this.props;
+
+
     const imageUrl = map[this.props.id];
     
     const imageStyle = {
-      backgroundImage: `url(${imageUrl})`
+      backgroundImage: `url(${photo.uri})`,
+      opacity: photo.loading ? 0.3 : 1
     };
 
     return (
