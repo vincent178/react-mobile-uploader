@@ -42,7 +42,6 @@ export function uploadPhoto(image, imageDataUrl) {
 
         data.uuid = uuid;
         data.loading = false;
-        data.uri = data.image_url;
 
         const normalized = normalize([data], [PhotoEntity]);
         dispatch(receivePhoto(normalized.entities, normalized.result));

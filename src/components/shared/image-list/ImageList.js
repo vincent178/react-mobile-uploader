@@ -104,7 +104,7 @@ export default class ImageList extends Component {
 
                 const size = document.querySelector('.image-list').offsetWidth / 3;
 
-                const layout = items.map(n => {
+                const layout = items.map((_, n) => {
                   const row = Math.floor(n / 3);
                   const col = n % 3;
                   return [size * col, size * row];
