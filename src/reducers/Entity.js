@@ -21,5 +21,7 @@ export default function entity(state = initialState, action) {
     return mergeWith({}, state, action.entity, customizer);
   }
 
+  console.log(state);
+
   return state;
 }

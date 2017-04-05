@@ -18,9 +18,18 @@ export default class ImageUpload extends Component {
     const files = Array.from(e.target.files);
 
     files.forEach(file => {
-      dispatch(uploadPhoto(file, 0));
-    });
 
+      const reader = new FileReader();
+
+      reader.onload = function() {
+
+        dispatch(uploadPhoto(file, this.result));
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
   }
 
   render() {

@@ -1,7 +1,8 @@
-import 'isomorphic-fetch';
-import {normalize, arrayOf} from 'normalizr';
-import {RECEIVE_PHOTO} from '../constants/ActionType'
-import {PhotoEntity} from '../constants/Schema';
+import "isomorphic-fetch";
+import Uuid from 'uuid';
+import {normalize} from "normalizr";
+import {RECEIVE_PHOTO} from "../constants/ActionType";
+import {PhotoEntity} from "../constants/Schema";
 
 function receivePhoto(entities, photos) {
   return {
@@ -12,22 +13,33 @@ function receivePhoto(entities, photos) {
 }
 
 
-export function uploadPhoto(image, weight) {
+export function uploadPhoto(image, imageDataUrl) {
+  const uuid = Uuid.v4();
 
-  const data = new FormData();
+  const formForUpload = new FormData();
 
-  data.append('photo[image]', image);
-  data.append('photo[weight]', weight);
-
+  formForUpload.append('photo[image]', image);
 
   return dispatch => {
+
+    const photo = {
+      uuid,
+      data: imageDataUrl,
+      loading: true
+    };
+
+    dispatch(receivePhoto([photo], [PhotoEntity]));
+
     return fetch('/photos.json', {
       method: 'POST',
-      body: data,
+      body: formForUpload,
       credentials: 'same-origin'
     })
       .then( res => res.json() )
       .then( data => {
+
+        data.uuid = uuid;
+        data.loading = false;
 
         const normalized = normalize([data], [PhotoEntity]);
         dispatch(receivePhoto(normalized.entities, normalized.result));
