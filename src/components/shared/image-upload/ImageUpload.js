@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
+import {uploadPhoto} from "../../../actions/Photo";
 
 
 export default class ImageUpload extends Component {
@@ -12,8 +13,14 @@ export default class ImageUpload extends Component {
   }
   
   handleUploadFiles(e) {
-    const files = e.target.files;
-    console.log(files);
+    const {dispatch} = this.props;
+
+    const files = Array.from(e.target.files);
+
+    files.forEach(file => {
+      dispatch(uploadPhoto(file, 0));
+    });
+
   }
 
   render() {

@@ -4,11 +4,12 @@ import ImageUpload from "../image-upload/ImageUpload";
 import ArrayUtil from "../../../utils/ArrayUtil";
 import "./style.css";
 
-const items = [0, 1, 2, 3, 4];
+const items = [];
 
 export default class ImageList extends Component {
   
   constructor(props) {
+
     super(props);
 
     this.handleTouchStart = this.handleTouchStart.bind(this);
@@ -153,7 +154,7 @@ export default class ImageList extends Component {
         }
 
         <div className="image-item-for-list-wrap">
-          <ImageUpload />
+          <ImageUpload dispatch={this.props.dispatch} />
         </div>
       </div>
     );
