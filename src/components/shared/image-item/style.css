@@ -17,6 +17,6 @@
 }
 
 .image-item {
-  background-size: contain;
+  background-size: cover;
   background-position: center;
 }

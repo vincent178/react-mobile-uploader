@@ -145,7 +145,7 @@ export default class ImageList extends Component {
                   onTouchStart={this.handleTouchStart.bind(this, id)}
                   key={id}
                 >
-                  <ImageItem />
+                  <ImageItem id={id} />
                 </div>
               );
 
