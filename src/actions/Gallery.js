@@ -28,9 +28,11 @@ export function createGallery(title, photos) {
     })
       .then( res => res.json() )
       .then( data => {
-        console.log(data);
-
         dispatch(galleryFormClear());
+        window.location.replace('/');
+      })
+      .catch( e => {
+
       });
 
   };

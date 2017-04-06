@@ -17,8 +17,6 @@ function receivePhoto(entities, photos) {
 export function uploadPhoto(image, imageDataUrl) {
   const uuid = Uuid.v4();
 
-  console.log(`Get called: ${uuid}`);
-
   const formForUpload = new FormData();
 
   formForUpload.append('photo[image]', image);
