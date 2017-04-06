@@ -31,9 +31,7 @@ export default class NavigationBar extends Component {
         submitLoading: true
       });
 
-      dispatch(createGallery(title, photos).then(() => {
-        this.setState({submitLoading: false})
-      }))
+      dispatch(createGallery(title, photos))
     }
   }
 
