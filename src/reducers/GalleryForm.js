@@ -21,6 +21,9 @@ export default function galleryFormReducer(state = initialState, action) {
         photos: [...state.photos, action.photo]
       };
 
+    case types.GALLERY_FORM_CLEAR:
+      return initialState;
+
     default:
       return state;
   }

@@ -1,15 +1,38 @@
-import * as types from '../constants/ActionType';
+import "isomorphic-fetch";
+import {galleryFormClear} from "./GalleryForm";
 
 export function createGallery(title, photos) {
 
-  console.log('title: ');
-  console.log(title);
+  const photo_ids = photos.reduce((photo_ids, id, index) => {
+    photo_ids[id] = index;
+    return photo_ids;
+  }, {});
 
-  console.log('photos: ');
-  console.log(photos);
+  return dispatch => {
 
-  return {
-    type: types.CREATE_GALLERY
-  }
+    const body = {
+      gallery: {
+        name: title,
+        photo_ids: JSON.stringify(photo_ids)
+      }
+    };
+
+    return fetch('/galleries.json', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+      credentials: 'same-origin'
+    })
+      .then( res => res.json() )
+      .then( data => {
+        console.log(data);
+
+        dispatch(galleryFormClear());
+      });
+
+  };
 }
 

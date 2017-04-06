@@ -1,14 +1,10 @@
-import React, {Component, PropTypes} from "react";
+import React, {Component} from "react";
 import ImageItem from "../image-item/ImageItem";
 import ImageUpload from "../image-upload/ImageUpload";
 import ArrayUtil from "../../../utils/ArrayUtil";
 import "./style.css";
 
 export default class ImageList extends Component {
-
-  static propTypes = {
-    photos: PropTypes.arrayOf(PropTypes.string)
-  };
 
   constructor(props) {
 
@@ -34,6 +30,13 @@ export default class ImageList extends Component {
     document.addEventListener('touchend', this.handleTouchEnd, false);
     document.addEventListener('mousemove', this.handleMouseMove, false);
     document.addEventListener('mouseup', this.handleMouseUp, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('touchmove', this.handleTouchMove, false);
+    document.removeEventListener('touchend', this.handleTouchEnd, false);
+    document.removeEventListener('mousemove', this.handleMouseMove, false);
+    document.removeEventListener('mouseup', this.handleMouseUp, false);
   }
 
   handleTouchStart(id, e) {

@@ -14,3 +14,9 @@ export function galleryFormAddPhoto(photo) {
   }
 }
 
+export function galleryFormClear() {
+  return {
+    type: types.GALLERY_FORM_CLEAR
+  }
+}
+
