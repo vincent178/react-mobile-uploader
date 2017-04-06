@@ -5,7 +5,7 @@ import "./style.css";
 export default class ImageItem extends Component {
   
   static propTypes = {
-    photo: PropTypes.object.required
+    photo: PropTypes.object.isRequired
   };
 
   render() {

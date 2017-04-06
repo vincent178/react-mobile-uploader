@@ -28,9 +28,15 @@
 }
 
 .navigation-submit {
-  width: 60px;
-  height: 28px;
-  line-height: 28px;
-  border-radius: .35rem;
-  background: #fdfdfd;
+  width: 54px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: .2rem;
+  background: #1E6ACF;
+  color: white;
 }
+
+.navigation-submit.disable {
+  background: #ccc;
+}
+

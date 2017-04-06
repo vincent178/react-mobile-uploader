@@ -3,6 +3,7 @@ import Uuid from 'uuid';
 import {normalize} from "normalizr";
 import {RECEIVE_PHOTO} from "../constants/ActionType";
 import {PhotoEntity} from "../constants/Schema";
+import {galleryFormAddPhoto} from "./GalleryForm";
 
 function receivePhoto(entities, photos) {
   return {
@@ -15,6 +16,8 @@ function receivePhoto(entities, photos) {
 
 export function uploadPhoto(image, imageDataUrl) {
   const uuid = Uuid.v4();
+
+  console.log(`Get called: ${uuid}`);
 
   const formForUpload = new FormData();
 
@@ -45,6 +48,7 @@ export function uploadPhoto(image, imageDataUrl) {
 
         const normalized = normalize([data], [PhotoEntity]);
         dispatch(receivePhoto(normalized.entities, normalized.result));
+        dispatch(galleryFormAddPhoto(data.id));
 
       })
       .catch( e => {
