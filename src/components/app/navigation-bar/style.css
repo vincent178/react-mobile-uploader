@@ -1,0 +1,36 @@
+.navigation-container {
+  display: flex;
+  align-items: center;
+
+  height: 54px;
+  background-color: #131418;
+}
+
+.navigation-logo {
+  background-image: url(../../../icons/logo.png);
+  background-size: cover;
+  height: 55px;
+  width: 55px;
+}
+
+.navigation-logo-placeholder {
+  height: 55px;
+  width: 55px;
+}
+
+.navigation-content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.navigation-submit {
+  width: 60px;
+  height: 28px;
+  line-height: 28px;
+  border-radius: .35rem;
+  background: #fdfdfd;
+}

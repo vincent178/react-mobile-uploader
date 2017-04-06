@@ -2,7 +2,7 @@
   "name": "m-dionysus",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:9000",
+  "proxy": "http://localhost:8888",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
@@ -21,7 +21,7 @@
     "redux-devtools": "^3.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "INCLUDE_LOGO=1 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

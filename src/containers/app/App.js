@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import injectTapEventPlugin from "react-tap-event-plugin";
-import NavigationBar from "../../components/app/navigation/NavigationBar";
+import NavigationBar from "../../components/app/navigation-bar/NavigationBar";
 import Compose from '../compose/Compose';
 import "./style.css";
 
