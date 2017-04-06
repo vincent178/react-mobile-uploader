@@ -1,7 +1,5 @@
 
-const initialState = {
-  items: []
-};
+const initialState = [];
 
 
 export default function galleryReducer(state = initialState, action) {

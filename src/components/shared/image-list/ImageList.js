@@ -79,8 +79,8 @@ export default class ImageList extends Component {
 
     const { lastPress, isPressed, mouseXYDelta } = this.state;
     const { photo, entity } = this.props;
-    const items = photo.items;
-
+    const items = photo;
+    
     return (
       <div className="image-list">
 

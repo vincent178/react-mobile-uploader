@@ -13,7 +13,7 @@ function customizer(objValue, srcValue) {
   }
 }
 
-export default function entity(state = initialState, action) {
+export default function entityReducer(state = initialState, action) {
 
   if (action.entities) {
     return mergeWith({}, state, action.entities, customizer);

@@ -29,7 +29,7 @@ export function uploadPhoto(image, imageDataUrl) {
     };
 
     const normalized = normalize([photo], [PhotoEntity]);
-
+    
     dispatch(receivePhoto(normalized.entities, normalized.result));
 
     return fetch('/photos.json', {
