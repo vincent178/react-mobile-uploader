@@ -43,7 +43,7 @@ export default class NavigationBar extends Component {
     const { navigationBarTitle, submitButtonTitle } = app;
 
 
-    if (galleryForm.title && galleryForm.photos.length > 0) {
+    if (galleryForm.title && galleryForm.photos.length > 0 && submitDisabled) {
       this.setState({submitDisabled: false});
     }
 
