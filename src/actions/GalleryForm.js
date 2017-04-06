@@ -7,10 +7,17 @@ export function galleryFormChangeTitle(title) {
   }
 }
 
-export function galleryFormAddPhoto(photo) {
+export function galleryFormAddPhoto(photoId) {
   return {
     type: types.GALLERY_FORM_ADD_PHOTO,
-    photo
+    photoId
+  }
+}
+
+export function galleryFormRemovePhoto(photoId) {
+  return {
+    type: types.GALLERY_FORM_REMOVE_PHOTO,
+    photoId
   }
 }
 

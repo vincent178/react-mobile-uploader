@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionType';
+import * as _ from 'lodash';
 
 const initialState = {
   title: null,
@@ -21,6 +22,11 @@ export default function galleryFormReducer(state = initialState, action) {
         photos: [...state.photos, action.photo]
       };
 
+    case types.GALLERY_FORM_REMOVE_PHOTO:
+      return {
+        title: state.title,
+        photos: _.remove(state.photos, (n) => n === action.photoId)
+      };
     case types.GALLERY_FORM_CLEAR:
       return initialState;
 

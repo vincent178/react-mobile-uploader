@@ -1,7 +1,7 @@
 import "isomorphic-fetch";
 import Uuid from 'uuid';
 import {normalize} from "normalizr";
-import {RECEIVE_PHOTO} from "../constants/ActionType";
+import {RECEIVE_PHOTO, REMOVE_PHOTO} from "../constants/ActionType";
 import {PhotoEntity} from "../constants/Schema";
 import {galleryFormAddPhoto} from "./GalleryForm";
 
@@ -13,6 +13,12 @@ function receivePhoto(entities, photos) {
   }
 }
 
+export function removePhoto(uuid) {
+  return {
+    type: REMOVE_PHOTO,
+    uuid
+  }
+}
 
 export function uploadPhoto(image, imageDataUrl) {
   const uuid = Uuid.v4();
