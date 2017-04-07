@@ -61,11 +61,9 @@ export default class NavigationBar extends Component {
     return (
       <div className="navigation-container">
         <div className="m-container navigation-content-container">
-          
-          { process.env.INCLUDE_LOGO
-            ? <div className="navigation-logo" />
-            : <div className="navigation-logo-placeholder" /> }
-          
+
+          <div className="navigation-logo" />
+
           <div>{ navigationBarTitle ? navigationBarTitle : null }</div>
           
           <div className="navigation-submit"
