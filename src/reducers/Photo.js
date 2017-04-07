@@ -11,7 +11,7 @@ export default function photoReducer(state = initialState, action) {
       return Array.from(new Set([...state, ...action.photos]));
 
     case REMOVE_PHOTO:
-      return _.remove(state, (uuid) => uuid === action.uuid);
+      return _.filter(state, (uuid) => uuid !== action.uuid);
 
     default:
       return state;

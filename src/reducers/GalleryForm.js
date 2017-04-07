@@ -17,16 +17,19 @@ export default function galleryFormReducer(state = initialState, action) {
       };
 
     case types.GALLERY_FORM_ADD_PHOTO:
+      
       return {
         title: state.title,
-        photos: [...state.photos, action.photo]
+        photos: [...state.photos, action.photoId]
       };
 
     case types.GALLERY_FORM_REMOVE_PHOTO:
+      
       return {
         title: state.title,
-        photos: _.remove(state.photos, (n) => n === action.photoId)
+        photos: _.filter(state.photos, (n) => n !== action.photoId)
       };
+      
     case types.GALLERY_FORM_CLEAR:
       return initialState;
 

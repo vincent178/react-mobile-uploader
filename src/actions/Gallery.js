@@ -7,7 +7,7 @@ export function createGallery(title, photos) {
     photo_ids[id] = index;
     return photo_ids;
   }, {});
-
+  
   return dispatch => {
 
     const body = {

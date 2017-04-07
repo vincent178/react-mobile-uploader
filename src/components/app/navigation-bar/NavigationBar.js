@@ -34,23 +34,29 @@ export default class NavigationBar extends Component {
       dispatch(createGallery(title, photos))
     }
   }
+  
+  componentWillReceiveProps(nextProps) {
+  
+    const { submitDisabled } = this.state;
+    const { galleryForm } = nextProps;
+    
+     if (galleryForm.title && galleryForm.photos.length > 0 && submitDisabled) {
+      this.setState({submitDisabled: false});
+    }
+   
+  }
+  
+  
 
 
   render() {
     const { submitDisabled } = this.state;
 
-    const { app, galleryForm } = this.props;
-    const { navigationBarTitle, submitButtonTitle } = app;
-
-
-    if (galleryForm.title && galleryForm.photos.length > 0 && submitDisabled) {
-      this.setState({submitDisabled: false});
-    }
+    const { app: { navigationBarTitle, submitButtonTitle } } = this.props;
 
     const buttonStyle = {
       background: submitDisabled ? "#ccc": null
     };
-
 
     return (
       <div className="navigation-container">

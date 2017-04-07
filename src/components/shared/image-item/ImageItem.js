@@ -21,6 +21,7 @@ export default class ImageItem extends Component {
     const { dispatch, photo } = this.props;
 
     if (!photo.loading) {
+      console.debug(`[ImageItem] about to remove image: ${photo.id}`);
       dispatch(galleryFormRemovePhoto(photo.id));
       dispatch(removePhoto(photo.uuid));
     }
