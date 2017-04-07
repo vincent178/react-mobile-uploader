@@ -53,11 +53,14 @@ export default class ImageList extends Component {
   }
 
   handleMouseDown(id, e) {
-    this.setState({
-      lastPress: id,
-      isPressed: true,
-      mouseXY: [e.pageX, e.pageY]
-    })
+
+    if (Array.from(e.target.classList).indexOf('close-icon') === -1) {
+      this.setState({
+        lastPress: id,
+        isPressed: true,
+        mouseXY: [e.pageX, e.pageY]
+      })
+    }
   }
 
   handleMouseMove(e) {
