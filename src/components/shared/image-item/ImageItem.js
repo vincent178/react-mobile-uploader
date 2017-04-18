@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import CloseIcon from "../icons/close-icon/CloseIcon";
-import {galleryFormRemovePhoto} from '../../../actions/GalleryForm';
-import {removePhoto} from '../../../actions/Photo';
+import {galleryFormRemovePhoto} from "../../../actions/GalleryForm";
 import "./style.css";
 
 export default class ImageItem extends Component {
@@ -22,8 +21,7 @@ export default class ImageItem extends Component {
 
     if (!photo.loading) {
       console.debug(`[ImageItem] about to remove image: ${photo.id}`);
-      dispatch(galleryFormRemovePhoto(photo.id));
-      dispatch(removePhoto(photo.uuid));
+      dispatch(galleryFormRemovePhoto(photo.uuid));
     }
   }
 

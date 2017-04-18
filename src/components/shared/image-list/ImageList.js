@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import ImageItem from "../image-item/ImageItem";
 import ImageUpload from "../image-upload/ImageUpload";
 import ArrayUtil from "../../../utils/ArrayUtil";
+import {galleryFormReorder} from '../../../actions/GalleryForm';
 import "./style.css";
 
 export default class ImageList extends Component {
@@ -21,7 +22,8 @@ export default class ImageList extends Component {
       mouseXY: [0, 0],
       mouseXYDelta: [0, 0],
       lastPress: null,
-      isPressed: false
+      isPressed: false,
+      currentOrder: []
     }
   }
 
@@ -39,8 +41,8 @@ export default class ImageList extends Component {
     document.removeEventListener('mouseup', this.handleMouseUp, false);
   }
 
-  handleTouchStart(id, e) {
-    this.handleMouseDown(id, e.touches[0]);
+  handleTouchStart(uuid, e) {
+    this.handleMouseDown(uuid, e.touches[0]);
   }
 
   handleTouchMove(e) {
@@ -52,11 +54,11 @@ export default class ImageList extends Component {
     this.handleMouseUp(e.touches[0]);
   }
 
-  handleMouseDown(id, e) {
+  handleMouseDown(uuid, e) {
 
     if (Array.from(e.target.classList).indexOf('close-icon') === -1) {
       this.setState({
-        lastPress: id,
+        lastPress: uuid,
         isPressed: true,
         mouseXY: [e.pageX, e.pageY]
       })
@@ -74,6 +76,14 @@ export default class ImageList extends Component {
   }
 
   handleMouseUp() {
+    const { galleryForm: { photos }, dispatch } = this.props;
+
+    if (photos.length > 0 && this.state.isPressed) {
+
+      const [_, newItems] = this.calculateNewLayout(photos, this.state.lastPress, this.state.mouseXYDelta);
+      dispatch(galleryFormReorder(newItems));
+    }
+
     this.setState({
       isPressed: false,
       mouseXYDelta: [0, 0],
@@ -81,25 +91,46 @@ export default class ImageList extends Component {
     })
   }
 
+  calculateNewLayout(items, lastPress, mouseXYDelta) {
+
+    const size = document.querySelector('.image-list').offsetWidth / 3;
+
+    const layout = items.map((_, n) => {
+      const row = Math.floor(n / 3);
+      const col = n % 3;
+      return [size * col, size * row];
+    });
+
+    const movingItemCurrentIndex = items.indexOf(lastPress);
+
+    const xCount = Math.round(mouseXYDelta[0] / size);
+    const yCount = Math.round(mouseXYDelta[1] / size);
+
+    const movingItemNewIndex = movingItemCurrentIndex + xCount + yCount * 3;
+    const newItems = ArrayUtil.reinsert(items, movingItemCurrentIndex, movingItemNewIndex);
+
+    return [layout, newItems];
+  }
+
   render() {
 
     const { lastPress, isPressed, mouseXYDelta } = this.state;
-    const { photo, entity } = this.props;
-    const items = photo;
+    const { galleryForm: { photos }, entity } = this.props;
+    const items = photos;
 
     return (
       <div className="image-list">
 
         {
-          items.map(id => {
+          items.map(uuid => {
 
-            const photo = entity.photos[id];
+            const photo = entity.photos[uuid];
 
             let style = {};
 
             if (isPressed) {
 
-              if (id === lastPress) {
+              if (uuid === lastPress) {
 
                 style = {
                   transform: `translate(${mouseXYDelta[0]}px, ${mouseXYDelta[1]}px) scale(1.1)`,
@@ -108,24 +139,10 @@ export default class ImageList extends Component {
 
               } else {
 
-                const size = document.querySelector('.image-list').offsetWidth / 3;
+                const [layout, newItems] = this.calculateNewLayout(items, lastPress, mouseXYDelta);
 
-                const layout = items.map((_, n) => {
-                  const row = Math.floor(n / 3);
-                  const col = n % 3;
-                  return [size * col, size * row];
-                });
-
-                const movingItemCurrentIndex = items.indexOf(lastPress);
-
-                const xCount = Math.round(mouseXYDelta[0] / size);
-                const yCount = Math.round(mouseXYDelta[1] / size);
-
-                const movingItemNewIndex = movingItemCurrentIndex + xCount + yCount * 3;
-                const newItems = ArrayUtil.reinsert(items, movingItemCurrentIndex, movingItemNewIndex);
-
-                const idCurrentIndex = items.indexOf(id);
-                const idNewIndex = newItems.indexOf(id);
+                const idCurrentIndex = items.indexOf(uuid);
+                const idNewIndex = newItems.indexOf(uuid);
 
                 if (idCurrentIndex === idNewIndex) {
 
@@ -153,11 +170,11 @@ export default class ImageList extends Component {
               <div
                 className="image-item-for-list-wrap"
                 style={style}
-                onMouseDown={this.handleMouseDown.bind(this, id)}
-                onTouchStart={this.handleTouchStart.bind(this, id)}
-                key={id}
+                onMouseDown={this.handleMouseDown.bind(this, uuid)}
+                onTouchStart={this.handleTouchStart.bind(this, uuid)}
+                key={uuid}
               >
-                <ImageItem id={id} photo={photo} dispatch={this.props.dispatch} />
+                <ImageItem id={uuid} photo={photo} dispatch={this.props.dispatch} />
               </div>
             );
 

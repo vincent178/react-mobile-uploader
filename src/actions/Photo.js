@@ -1,24 +1,8 @@
 import "isomorphic-fetch";
-import Uuid from 'uuid';
+import Uuid from "uuid";
 import {normalize} from "normalizr";
-import {RECEIVE_PHOTO, REMOVE_PHOTO} from "../constants/ActionType";
 import {PhotoEntity} from "../constants/Schema";
 import {galleryFormAddPhoto} from "./GalleryForm";
-
-function receivePhoto(entities, photos) {
-  return {
-    type: RECEIVE_PHOTO,
-    entities,
-    photos
-  }
-}
-
-export function removePhoto(uuid) {
-  return {
-    type: REMOVE_PHOTO,
-    uuid
-  }
-}
 
 export function uploadPhoto(image, imageDataUrl) {
   const uuid = Uuid.v4();
@@ -35,9 +19,9 @@ export function uploadPhoto(image, imageDataUrl) {
       loading: true
     };
 
-    const normalized = normalize([photo], [PhotoEntity]);
-    
-    dispatch(receivePhoto(normalized.entities, normalized.result));
+    const normalized = normalize(photo, PhotoEntity);
+
+    dispatch(galleryFormAddPhoto(normalized.result, normalized.entities));
 
     return fetch('/photos.json', {
       method: 'POST',
@@ -50,15 +34,12 @@ export function uploadPhoto(image, imageDataUrl) {
         data.uuid = uuid;
         data.loading = false;
 
-        const normalized = normalize([data], [PhotoEntity]);
-        dispatch(receivePhoto(normalized.entities, normalized.result));
-        dispatch(galleryFormAddPhoto(data.id));
+        const normalized = normalize(data, PhotoEntity);
 
+        dispatch(galleryFormAddPhoto(normalized.result, normalized.entities));
       })
       .catch( e => {
-
         console.log(e);
-
       });
   }
 }

@@ -16,11 +16,17 @@ export default function galleryFormReducer(state = initialState, action) {
         photos: state.photos
       };
 
-    case types.GALLERY_FORM_ADD_PHOTO:
-      
+    case types.GALLERY_FORM_REORDER:
       return {
         title: state.title,
-        photos: [...state.photos, action.photoId]
+        photos: action.photos
+      };
+
+    case types.GALLERY_FORM_ADD_PHOTO:
+
+      return {
+        title: state.title,
+        photos: Array.from(new Set([...state.photos, action.photoId]))
       };
 
     case types.GALLERY_FORM_REMOVE_PHOTO:
