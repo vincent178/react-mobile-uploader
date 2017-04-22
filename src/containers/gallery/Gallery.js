@@ -56,13 +56,6 @@ class Gallery extends Component {
     const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
     const gallery = galleries[slug];
 
-    console.log(galleries);
-
-    console.log(gallery);
-
-    console.log(gallery && gallery.photos && gallery.photos.length > 0);
-
-
     return (
       <div>
         { computedLoading ? <h1>is loading</h1> : null }
