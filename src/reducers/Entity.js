@@ -4,7 +4,8 @@ const initialState = {
   photos: {},
   topics: {},
   users: {},
-  notifications: {}
+  notifications: {},
+  galleries: {}
 };
 
 function customizer(objValue, srcValue) {

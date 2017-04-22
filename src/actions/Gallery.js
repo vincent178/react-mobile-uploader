@@ -1,5 +1,18 @@
 import "isomorphic-fetch";
 import {galleryFormClear} from "./GalleryForm";
+import * as types from "../constants/ActionType";
+import {normalize} from "normalizr";
+import {GalleryEntity} from "../constants/Schema";
+
+function receiveGalleries(entities, galleries) {
+
+  return {
+    type: types.RECEIVE_GALLERY,
+    entities,
+    galleries
+  }
+
+}
 
 export function createGallery(title, photos) {
 
@@ -36,5 +49,19 @@ export function createGallery(title, photos) {
       });
 
   };
+}
+
+export function fetchGallery(slug) {
+
+  return async dispatch => {
+
+    const res = await fetch(`/api/v1/galleries/${slug}`);
+
+    const jsonRes = await res.json();
+
+    const normalized = normalize(jsonRes, GalleryEntity);
+
+    dispatch(receiveGalleries(normalized.entities, [normalized.result]));
+  }
 }
 

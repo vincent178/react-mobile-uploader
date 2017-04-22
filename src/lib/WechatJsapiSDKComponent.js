@@ -22,8 +22,6 @@ export default function WechatJsapiSDKComponent(WrappedComponent) {
 
       if (nextProps.wechatJsapi.signature !== this.props.wechatJsapi.signature) {
 
-        console.log(nextProps.wechatJsapi);
-
         window.wx.config(nextProps.wechatJsapi);
 
         window.wx.ready(() => {
@@ -43,7 +41,7 @@ export default function WechatJsapiSDKComponent(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent {...this.props} />
+      return <WrappedComponent wechatJsApiLoading={this.state.wechatJsApiLoading} {...this.props} />
     }
 
   };

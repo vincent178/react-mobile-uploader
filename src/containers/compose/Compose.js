@@ -18,11 +18,6 @@ class Compose extends Component {
   }
 
   render() {
-    window.wx.previewImage({
-      current: 'http://7xjgwh.com1.z0.glb.clouddn.com/uploads/photo/image/207997/234428sojh50jwtu9utwhu.jpg',
-      urls: []
-    });
-
     return (
       <div className="m-container">
         <TextInput {...this.props} handleInput={this.handleInput} />

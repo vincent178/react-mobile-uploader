@@ -3,8 +3,8 @@ import * as types from "../constants/ActionType";
 
 function receiveJsapi(appId, timestamp, nonceStr, signature) {
 
-  const debug = true;
-  const jsApiList = ['previewImage'];
+  const debug = false;
+  const jsApiList = ['previewImage', 'scanQRCode'];
 
   const config = {
     debug,

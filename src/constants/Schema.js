@@ -7,3 +7,9 @@ export const TopicEntity = new schema.Entity('topics', {}, {
 export const PhotoEntity = new schema.Entity('photos', {}, {
   idAttribute: 'uuid'
 });
+
+export const GalleryEntity = new schema.Entity('galleries', {}, {
+  idAttribute: 'slug'
+});
+
+export const UserEntity = new schema.Entity('users');

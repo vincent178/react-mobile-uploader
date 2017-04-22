@@ -18,7 +18,7 @@ class App extends Component {
         <div className="App">
           <NavigationBar {...this.props} />
 
-          <Route exact path="/" component={Compose} />
+          <Route exact path="/" component={Gallery} />
           <Route path="/galleries/:slug" component={Gallery}/>
           <Route path="/galleries/new" component={Compose} />
 
