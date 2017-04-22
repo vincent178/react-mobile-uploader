@@ -4,6 +4,7 @@ import gallery from './Gallery';
 import entity from './Entity';
 import photo from './Photo';
 import galleryForm from './GalleryForm';
+import wechatJsapi from './WechatJsapi';
 
 
 
@@ -12,5 +13,6 @@ export default combineReducers({
   photo,
   gallery,
   entity,
-  galleryForm
+  galleryForm,
+  wechatJsapi
 });
