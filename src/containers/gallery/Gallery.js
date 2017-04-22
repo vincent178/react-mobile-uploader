@@ -11,6 +11,8 @@ class Gallery extends Component {
     super(props);
 
     this.handlePhotoClick = this.handlePhotoClick.bind(this);
+    this.renderLoading = this.renderLoading.bind(this);
+    this.renderGallery = this.renderGallery.bind(this);
 
     this.state = {
       loading: true
@@ -30,8 +32,6 @@ class Gallery extends Component {
 
   handlePhotoClick(photo) {
 
-    console.log("FFFFFFFFFFFFFFF");
-
     const { entity: { galleries } } = this.props;
 
     const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
@@ -46,6 +46,33 @@ class Gallery extends Component {
     });
   }
 
+  renderLoading() {
+    return <div>is loading</div>
+  }
+
+  renderGallery() {
+    const { entity: { galleries } } = this.props;
+
+    const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
+    const gallery = galleries[slug];
+
+    return (
+      <div>
+        <h1>{gallery.name}</h1>
+        {
+          gallery && gallery.photos && gallery.photos.length > 0
+            ? gallery.photos.map(photo =>
+            <img src={photo.photo_url}
+                 key={photo.id}
+                 style={{width: '100%'}}
+                 onClick={this.handlePhotoClick.bind(this, photo)} />)
+            : null
+
+        }
+      </div>
+    )
+  }
+
   render() {
 
     const { loading } = this.state;
@@ -53,22 +80,12 @@ class Gallery extends Component {
 
     const computedLoading = loading || wechatJsApiLoading;
 
-    const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
-    const gallery = galleries[slug];
-
     return (
       <div>
-        { computedLoading ? <h1>is loading</h1> : null }
-
         {
-          gallery && gallery.photos && gallery.photos.length > 0
-            ? gallery.photos.map(photo =>
-                <img src={photo.photo_url}
-                     key={photo.id}
-                     style={{width: '100%'}}
-                     onClick={this.handlePhotoClick.bind(this, photo)} />)
-            : null
-
+          computedLoading
+            ? this.renderLoading()
+            : this.renderGallery()
         }
 
       </div>
