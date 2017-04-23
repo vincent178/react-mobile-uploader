@@ -1,7 +1,7 @@
 import React from 'react';
-import {fetchJsapi} from '../actions/Wechat';
+import {fetchJsapi} from '../../actions/WechatJsapi';
 
-export default function WechatJsapiSDKComponent(WrappedComponent) {
+export default (WrappedComponent) => {
 
   return class extends React.Component {
 
