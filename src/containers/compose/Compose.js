@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import ImageList from "../../components/shared/image-list/ImageList";
-import TextInput from "../../components/shared/text-input/TextInput";
+import ImageList from "../../components/image-list/ImageList";
+import TextInput from "../../components/text-input/TextInput";
 import {galleryFormChangeTitle} from "../../actions/GalleryForm";
 
 class Compose extends Component {

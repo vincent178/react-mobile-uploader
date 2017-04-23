@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchGallery} from '../../actions/Gallery';
-import Photo from "../../components/shared/photo/Photo";
+import Photo from "../../components/photo/Photo";
 
 
 class Gallery extends Component {

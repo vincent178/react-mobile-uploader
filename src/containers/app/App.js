@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import injectTapEventPlugin from "react-tap-event-plugin";
-import NavigationBar from "../../components/app/navigation-bar/NavigationBar";
+import NavigationBar from "../../components/navigation-bar/NavigationBar";
 import Compose from '../compose/Compose';
 import Gallery from '../gallery/Gallery';
 import WechatJsapiSDKComponent from '../../lib/WechatJsapiSDKComponent';
