@@ -30,6 +30,33 @@ class Gallery extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+
+    if (!this.state.loading) {
+
+      window.wx.ready(() => {
+
+        const shareOptions = {
+          title: '',
+          desc: '',
+          link: '',
+          imgUrl: ''
+        };
+
+        window.wx.onMenuShareTimeline(shareOptions);
+
+        window.wx.onMenuShareAppMessage(shareOptions);
+
+        window.wx.onMenuShareQQ(shareOptions);
+
+        window.wx.onMenuShareWeibo(shareOptions);
+
+        window.wx.onMenuShareQZone(shareOptions);
+
+      });
+    }
+  }
+
   handlePhotoClick(photo) {
 
     const { entity: { galleries } } = this.props;

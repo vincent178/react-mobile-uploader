@@ -12,6 +12,24 @@ injectTapEventPlugin();
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isWechatBrowser: false
+    }
+  }
+
+  componentDidMount() {
+
+    const ua = navigator.userAgent.toLowerCase();
+
+    this.setState({
+      isWechatBrowser: ua.indexOf('micromessenger') !== -1
+    });
+
+  }
+
   render() {
     return (
       <Router>

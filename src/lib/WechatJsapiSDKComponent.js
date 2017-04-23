@@ -9,13 +9,25 @@ export default function WechatJsapiSDKComponent(WrappedComponent) {
       super(props);
 
       this.state = {
-        wechatJsApiLoading: true
+        wechatJsApiLoading: false,
+        wechatJsApiSuccess: false,
+        wechatBrowser: false
       };
     }
 
     componentDidMount() {
-      const { dispatch } = this.props;
-      dispatch(fetchJsapi(window.location.href));
+
+      const ua = navigator.userAgent.toLowerCase();
+      const wechatBrowser = ua.indexOf('micromessenger') !== -1;
+
+      if (wechatBrowser) {
+        const { dispatch } = this.props;
+        dispatch(fetchJsapi(window.location.href));
+        this.setState({
+          wechatBrowser,
+          wechatJsApiLoading: true
+        });
+      }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -45,5 +57,4 @@ export default function WechatJsapiSDKComponent(WrappedComponent) {
     }
 
   };
-
 }
