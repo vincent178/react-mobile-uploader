@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {fetchGallery} from '../../actions/Gallery';
-import Photo from "../../components/photo/Photo";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {fetchGallery} from "../../actions/Gallery";
+import UserCard from "../../components/user-card/UserCard";
 
 
 class Gallery extends Component {
@@ -82,10 +82,16 @@ class Gallery extends Component {
 
     const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
     const gallery = galleries[slug];
+    const creator = gallery.creator;
+
+    console.log(gallery);
 
     return (
       <div>
         <h1>{gallery.name}</h1>
+        <div>
+          {creator.name}.{gallery.created_at}
+        </div>
         {
           gallery && gallery.photos && gallery.photos.length > 0
             ? gallery.photos.map(photo =>
@@ -96,6 +102,10 @@ class Gallery extends Component {
             : null
 
         }
+
+        <UserCard />
+
+        <div style={{height: '60px', width: '100%'}}></div>
       </div>
     )
   }

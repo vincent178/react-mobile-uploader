@@ -1,0 +1,12 @@
+.user-card-container {
+  display: flex;
+}
+
+.user-card-container .sidebar {
+
+  background: #5badf2;
+  width: 6px;
+  height: 60px;
+
+
+}
