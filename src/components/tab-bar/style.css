@@ -1,0 +1,24 @@
+.tabbar-container {
+
+  position: fixed;
+  bottom: 0;
+
+  width: 100%;
+
+
+
+  background: #131418;
+}
+
+.tabbar-inner-container {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 56px;
+
+  padding-left: 20px;
+  padding-right: 20px;
+}
+

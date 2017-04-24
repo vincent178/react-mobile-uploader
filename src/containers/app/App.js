@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import {connect} from "react-redux";
 import injectTapEventPlugin from "react-tap-event-plugin";
 import NavigationBar from "../../components/navigation-bar/NavigationBar";
+import TabBar from "../../components/tab-bar/TabBar";
 import Home from "../home/Home";
 import Compose from "../compose/Compose";
 import Gallery from "../gallery/Gallery";
@@ -43,12 +44,13 @@ class App extends Component {
           <NavigationBar {...this.props} />
 
           <Route exact path="/" component={Home} />
-          <Route path="/galleries/new" component={Compose} />
           <Route path="/galleries/:slug" component={Gallery} />
+          <Route path="/compose" component={Compose} />
           <Route path="/notifications" component={Notification} />
           <Route path="/users/:id" component={Profile} />
           <Route path="/me" component={Me} />
 
+          <TabBar />
         </div>
       </Router>
 
