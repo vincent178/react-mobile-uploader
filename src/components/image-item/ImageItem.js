@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from "react";
 import CloseIcon from "../icons/close-icon/CloseIcon";
-import {galleryFormRemovePhoto} from "../../../actions/GalleryForm";
+import {galleryFormRemovePhoto} from "../../actions/GalleryForm";
 import "./style.css";
 
 export default class ImageItem extends Component {

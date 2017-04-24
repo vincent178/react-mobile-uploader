@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import ImageItem from "../image-item/ImageItem";
 import ImageUpload from "../image-upload/ImageUpload";
-import ArrayUtil from "../../../utils/ArrayUtil";
-import {galleryFormReorder} from '../../../actions/GalleryForm';
+import ArrayUtil from "../../utils/ArrayUtil";
+import {galleryFormReorder} from '../../actions/GalleryForm';
 import "./style.css";
 
 export default class ImageList extends Component {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import {createGallery} from '../../../actions/Gallery';
+import {createGallery} from '../../actions/Gallery';
 import "./style.css";
 
 

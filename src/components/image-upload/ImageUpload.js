@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
-import {uploadPhoto} from "../../../actions/Photo";
+import {uploadPhoto} from "../../actions/Photo";
 
 
 export default class ImageUpload extends Component {
