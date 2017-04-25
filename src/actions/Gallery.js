@@ -40,10 +40,17 @@ export function createGallery(title, photos) {
       credentials: 'same-origin'
     });
 
-    const data = await res.json();
+    if (res.status < 300) {
 
-    dispatch(galleryFormClear());
-    window.location.replace('/');
+      dispatch(galleryFormClear());
+      window.location.replace('/');
+
+    } else {
+
+      console.debug('ERR: create gallery error');
+      throw new Error('createGallery error');
+
+    }
   };
 }
 

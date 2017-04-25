@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchGallery} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
+import './style.css';
+import like from '../../components/icons/like.png';
 
 
 class Gallery extends Component {
@@ -87,9 +89,9 @@ class Gallery extends Component {
     console.log(gallery);
 
     return (
-      <div>
-        <h1>{gallery.name}</h1>
-        <div>
+      <div style={{background: 'white'}}>
+        <h1 className="m-h1-title">{gallery.name}</h1>
+        <div className="m-subtitle">
           {creator.name}.{gallery.created_at}
         </div>
         {
@@ -102,8 +104,16 @@ class Gallery extends Component {
             : null
 
         }
+        <div className="gallery-action">
+          <div className="m-circle gallery-action-button">
+            <img src={like} width={32} height={32} />
+          </div>
+        </div>
 
+        <div style={{height: '20px', width: '100%', background: '#f5f5f5'}}></div>
         <UserCard />
+
+        <div style={{height: '60px', width: '100%', background: '#f5f5f5'}}></div>
 
         <div style={{height: '60px', width: '100%'}}></div>
       </div>
@@ -118,7 +128,7 @@ class Gallery extends Component {
     const computedLoading = loading || wechatJsApiLoading;
 
     return (
-      <div>
+      <div style={{display: 'flex'}}>
         {
           computedLoading
             ? this.renderLoading()

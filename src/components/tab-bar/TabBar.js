@@ -1,5 +1,9 @@
 import React, {Component} from 'react';
 import './style.css';
+import home from '../icons/home.png';
+import users from '../icons/users.png';
+import compose from '../icons/compose.png';
+import me from '../icons/me.png';
 
 export default class TabBar extends Component {
   
@@ -8,10 +12,18 @@ export default class TabBar extends Component {
       <div className="tabbar-container">
 
         <div className="tabbar-inner-container">
-          <a href="/">Home</a>
-          <a href="/galleries/dce60d96-ca7d-4778-bb9b-acd94f39ffdc">Gallery</a>
-          <a href="/compose">Compose</a>
-          <a href="/me">Me</a>
+          <a href="/">
+            <img src={home} alt="" width={32} height={32} />
+          </a>
+          <a href="/galleries/dce60d96-ca7d-4778-bb9b-acd94f39ffdc">
+            <img src={users} alt="" width={32} height={32} />
+          </a>
+          <a href="/compose">
+            <img src={compose} alt="" width={32} height={32} />
+          </a>
+          <a href="/me">
+            <img src={me} alt="" width={32} height={32} />
+          </a>
         </div>
 
 

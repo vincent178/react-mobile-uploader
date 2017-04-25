@@ -4,6 +4,17 @@ body {
   font-family: sans-serif;
 }
 
+.m-h1-title {
+  color: #4e5053;
+  font-weight: normal;
+  font-size: 30px;
+}
+
+.m-subtitle {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
 .m-container {
   max-width: 750px;
   margin: 0 auto;
@@ -21,6 +32,11 @@ body {
   overflow: hidden;
   border-radius: .3rem;
   box-sizing: border-box;
+}
+
+.m-circle {
+  border: 1px solid #eee;
+  border-radius: 50%;
 }
 
 
