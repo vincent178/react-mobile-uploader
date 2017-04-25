@@ -10,6 +10,7 @@ import Gallery from "../gallery/Gallery";
 import Notification from "../notification/Notification";
 import Profile from "../profile/Profile";
 import Me from "../me/Me";
+import {fetchCurrentUser} from '../../actions/App';
 
 import "./style.css";
 
@@ -28,6 +29,12 @@ class App extends Component {
   componentDidMount() {
 
     const ua = navigator.userAgent.toLowerCase();
+    const isWechatBrowser = ua.indexOf('micromessenger') !== -1;
+
+    const { dispatch } = this.props;
+
+    dispatch(fetchCurrentUser());
+
 
     this.setState({
       isWechatBrowser: ua.indexOf('micromessenger') !== -1

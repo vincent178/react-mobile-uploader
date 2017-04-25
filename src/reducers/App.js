@@ -12,10 +12,16 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
 
-    case types.SET_APP_WECHAT_BROWSER:
+    case types.APP_SET_WECHAT_BROWSER:
 
       return Object.assign({}, state, {
         wechatBrowser: action.isWechatBrowser
+      });
+
+    case types.APP_SET_CURRENT_USER:
+
+      return Object.assign({}, state, {
+        currentUser: action.currentUser
       });
 
     default:

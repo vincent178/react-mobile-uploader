@@ -21,7 +21,7 @@ export function createGallery(title, photos) {
     return photo_ids;
   }, {});
   
-  return dispatch => {
+  return async dispatch => {
 
     const body = {
       gallery: {
@@ -30,7 +30,7 @@ export function createGallery(title, photos) {
       }
     };
 
-    return fetch('/galleries.json', {
+    const res = await fetch('/galleries.json', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -38,16 +38,12 @@ export function createGallery(title, photos) {
       },
       body: JSON.stringify(body),
       credentials: 'same-origin'
-    })
-      .then( res => res.json() )
-      .then( data => {
-        dispatch(galleryFormClear());
-        window.location.replace('/');
-      })
-      .catch( e => {
+    });
 
-      });
+    const data = await res.json();
 
+    dispatch(galleryFormClear());
+    window.location.replace('/');
   };
 }
 
