@@ -111,7 +111,8 @@ class Gallery extends Component {
         </div>
 
         <div style={{height: '20px', width: '100%', background: '#f5f5f5'}}></div>
-        <UserCard />
+
+        <UserCard avatar={creator.avatar} name={creator.name} />
 
         <div style={{height: '60px', width: '100%', background: '#f5f5f5'}}></div>
 
