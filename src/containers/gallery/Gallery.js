@@ -4,6 +4,8 @@ import {fetchGallery} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
 import './style.css';
 import like from '../../components/icons/like.png';
+import PlaceHolder from "../../components/placeholder/PlaceHolder";
+import ReplyInputCard from "../../components/reply-input-card/ReplyInputCard";
 
 
 class Gallery extends Component {
@@ -91,8 +93,10 @@ class Gallery extends Component {
     return (
       <div style={{background: 'white'}}>
         <h1 className="m-h1-title">{gallery.name}</h1>
-        <div className="m-subtitle">
-          {creator.name}.{gallery.created_at}
+        <div className="m-subtitle gallery-subtitle">
+          <span className="gallery-subtitle-text">{creator.name}</span>
+          ·
+          <span className="gallery-subtitle-text">{gallery.created_at}</span>
         </div>
         {
           gallery && gallery.photos && gallery.photos.length > 0
@@ -110,11 +114,15 @@ class Gallery extends Component {
           </div>
         </div>
 
-        <div style={{height: '20px', width: '100%', background: '#f5f5f5'}}></div>
+        <PlaceHolder />
 
         <UserCard avatar={creator.avatar} name={creator.name} />
 
-        <div style={{height: '60px', width: '100%', background: '#f5f5f5'}}></div>
+        <PlaceHolder />
+
+        <ReplyInputCard />
+
+        <PlaceHolder />
 
         <div style={{height: '60px', width: '100%'}}></div>
       </div>

@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
 
+  margin: 12px 0;
 }
 
 .gallery-action-button {
@@ -14,4 +15,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.gallery-subtitle {
+  margin-bottom: 16px;
+}
+
+.gallery-subtitle-text {
+  margin: 0 5px;
 }

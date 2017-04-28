@@ -13,19 +13,18 @@ export default class TabBar extends Component {
 
         <div className="tabbar-inner-container">
           <a href="/">
-            <img src={home} alt="" width={32} height={32} />
+            <img src={home} alt="" width={27} height={27} />
           </a>
           <a href="/galleries/dce60d96-ca7d-4778-bb9b-acd94f39ffdc">
-            <img src={users} alt="" width={32} height={32} />
+            <img src={users} alt="" width={27} height={27} />
           </a>
           <a href="/compose">
             <img src={compose} alt="" width={32} height={32} />
           </a>
           <a href="/me">
-            <img src={me} alt="" width={32} height={32} />
+            <img src={me} alt="" width={27} height={27} />
           </a>
         </div>
-
 
       </div>
     );

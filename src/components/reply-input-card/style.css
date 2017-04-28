@@ -1,0 +1,28 @@
+
+.reply-input-card-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.reply-textarea-container {
+  background: #fff;
+  padding: 10px;
+  border: #D8D8DA 2px solid;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.reply-textarea-container textarea {
+  font-size: 18px;
+  line-height: normal;
+  background: none;
+  border: none;
+  width: 100%;
+  color: #888;
+  resize: none;
+}
+
+.reply-button {
+  align-self: flex-end;
+}

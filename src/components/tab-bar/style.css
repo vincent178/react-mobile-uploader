@@ -1,12 +1,7 @@
 .tabbar-container {
-
   position: fixed;
   bottom: 0;
-
   width: 100%;
-
-
-
   background: #131418;
 }
 
@@ -22,3 +17,6 @@
   padding-right: 20px;
 }
 
+.tabbar-inner-container a {
+  height: 32px;
+}

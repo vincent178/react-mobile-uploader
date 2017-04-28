@@ -6,17 +6,28 @@ class UserCard extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
-    isMe: PropTypes.bool.isRequired
+    isMe: PropTypes.bool.isRequired,
+    isFollowed: PropTypes.bool.isRequired
   };
 
   render() {
 
-    const {name, avatar, isMe} = this.props;
+    const {name, avatar, isMe, isFollowed} = this.props;
+
+    let actionText;
+
+    if (isMe) {
+      actionText = '我的';
+    } else if (isFollowed) {
+      actionText = '已关注';
+    } else {
+      actionText = '关注';
+    }
 
     return (
       <div className="user-card-container">
 
-        <div className="sidebar"></div>
+        <div className="sidebar" />
 
         <div className="user-card-content">
 
@@ -32,7 +43,10 @@ class UserCard extends React.Component {
               </div>
             </div>
 
-            <div className="user-card-action-button">关注</div>
+            <div className="m-action-button">
+              { actionText }
+            </div>
+
           </div>
 
         </div>
