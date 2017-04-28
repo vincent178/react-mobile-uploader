@@ -87,8 +87,7 @@ class Gallery extends Component {
     const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
     const gallery = galleries[slug];
     const creator = gallery.creator;
-
-    console.log(gallery);
+    const meta = gallery.meta;
 
     return (
       <div style={{background: 'white'}}>
@@ -116,7 +115,7 @@ class Gallery extends Component {
 
         <PlaceHolder />
 
-        <UserCard avatar={creator.avatar} name={creator.name} />
+        <UserCard avatar={creator.avatar} name={creator.name} isMe={meta.is_me} isFollowing={meta.is_following}/>
 
         <PlaceHolder />
 

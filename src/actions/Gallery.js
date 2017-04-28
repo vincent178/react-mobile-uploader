@@ -58,7 +58,9 @@ export function fetchGallery(slug) {
 
   return async dispatch => {
 
-    const res = await fetch(`/api/v1/galleries/${slug}`);
+    const res = await fetch(`/api/v1/galleries/${slug}`, {
+      credentials: 'same-origin'
+    });
 
     const jsonRes = await res.json();
 

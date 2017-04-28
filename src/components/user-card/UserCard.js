@@ -7,18 +7,18 @@ class UserCard extends React.Component {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     isMe: PropTypes.bool.isRequired,
-    isFollowed: PropTypes.bool.isRequired
+    isFollowing: PropTypes.bool.isRequired
   };
 
   render() {
 
-    const {name, avatar, isMe, isFollowed} = this.props;
+    const {name, avatar, isMe, isFollowing} = this.props;
 
     let actionText;
 
     if (isMe) {
       actionText = '我的';
-    } else if (isFollowed) {
+    } else if (isFollowing) {
       actionText = '已关注';
     } else {
       actionText = '关注';
