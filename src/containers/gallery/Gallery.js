@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchGallery} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
-import './style.css';
-import like from '../../components/icons/like.png';
+import "./style.css";
 import PlaceHolder from "../../components/placeholder/PlaceHolder";
 import ReplyInputCard from "../../components/reply-input-card/ReplyInputCard";
+import LikeButton from "../../components/like-button/LikeButton";
 
 
 class Gallery extends Component {
@@ -21,13 +21,12 @@ class Gallery extends Component {
     this.state = {
       loading: true
     }
-
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
 
-    dispatch(fetchGallery('dce60d96-ca7d-4778-bb9b-acd94f39ffdc'))
+    dispatch(fetchGallery('6042f9a9-0ae8-4c50-a0f5-13b4084c0f6e'))
       .then(() => {
         this.setState({loading: false})
       })
@@ -65,7 +64,7 @@ class Gallery extends Component {
 
     const { entity: { galleries } } = this.props;
 
-    const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
+    const slug = '6042f9a9-0ae8-4c50-a0f5-13b4084c0f6e';
     const gallery = galleries[slug];
     const urls = gallery.photos.map(_ => _.photo_url);
 
@@ -82,12 +81,13 @@ class Gallery extends Component {
   }
 
   renderGallery() {
-    const { entity: { galleries } } = this.props;
+    const { entity: { galleries }, dispatch } = this.props;
 
-    const slug = 'dce60d96-ca7d-4778-bb9b-acd94f39ffdc';
+    const slug = '6042f9a9-0ae8-4c50-a0f5-13b4084c0f6e';
     const gallery = galleries[slug];
     const creator = gallery.creator;
     const meta = gallery.meta;
+    const isLiked = meta.is_liked;
 
     return (
       <div style={{background: 'white'}}>
@@ -109,7 +109,7 @@ class Gallery extends Component {
         }
         <div className="gallery-action">
           <div className="m-circle gallery-action-button">
-            <img src={like} width={32} height={32} />
+            <LikeButton isLiked={isLiked} dispatch={dispatch} id={slug} />
           </div>
         </div>
 

@@ -14,13 +14,22 @@ function receiveGalleries(entities, galleries) {
 
 }
 
+function updateGallery(slug, data) {
+
+  return {
+    type: types.UPDATE_GALLERY,
+    slug,
+    data
+  }
+}
+
 export function createGallery(title, photos) {
 
   const photo_ids = photos.reduce((photo_ids, id, index) => {
     photo_ids[id] = index;
     return photo_ids;
   }, {});
-  
+
   return async dispatch => {
 
     const body = {
@@ -68,5 +77,30 @@ export function fetchGallery(slug) {
 
     dispatch(receiveGalleries(normalized.entities, [normalized.result]));
   }
+}
+
+export function likeGallery(slug) {
+
+  return async dispatch => {
+
+    const res = await fetch(`/api/v1/galleries/${slug}/like`, {
+      method: 'POST',
+      credentials: 'same-origin'
+    });
+
+    if (res.status === 200 || 204) {
+
+      dispatch(updateGallery(slug, {meta: {
+        isLiked: true
+      }}));
+
+    } else {
+
+      console.log('likeGallery action error');
+
+    }
+
+  }
+
 }
 

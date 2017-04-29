@@ -1,4 +1,6 @@
 import { mergeWith } from 'lodash/object';
+import * as types from "../constants/ActionType";
+import * as _ from 'lodash';
 
 const initialState = {
   photos: {},
@@ -14,11 +16,21 @@ function customizer(objValue, srcValue) {
   }
 }
 
+function updateEntity(state, type, key, data) {
+  const newEntity = _.merge({}, state[type][key], data);
+  return mergeWith({}, state, {[key]: {[key]: newEntity}}, customizer());
+}
+
 export default function entityReducer(state = initialState, action) {
 
   if (action.entities) {
     return mergeWith({}, state, action.entities, customizer);
   }
 
+  if (action.type === types.UPDATE_GALLERY) {
+    return updateEntity(state, 'galleries', action.slug, action.data);
+  }
+
   return state;
 }
+

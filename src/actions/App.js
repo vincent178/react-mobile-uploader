@@ -35,10 +35,9 @@ export function fetchCurrentUser() {
         dispatch(setCurrentUser(undefined))
 
       } else {
-
         const data = await res.json();
-
-        console.log(data);
+        console.debug('[fetchCurrentUser]:');
+        console.debug(data);
       }
 
     } else {

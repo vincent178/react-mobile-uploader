@@ -4,8 +4,8 @@ export const REMOVE_PHOTO = 'REMOVE_PHOTO';
 
 
 export const RECEIVE_GALLERY = 'RECEIVE_GALLERY';
-
 export const CREATE_GALLERY = 'CREATE_GALLERY';
+export const UPDATE_GALLERY = 'UPDATE_GALLERY';
 
 
 
