@@ -18,7 +18,7 @@ function customizer(objValue, srcValue) {
 
 function updateEntity(state, type, key, data) {
   const newEntity = _.merge({}, state[type][key], data);
-  return mergeWith({}, state, {[key]: {[key]: newEntity}}, customizer());
+  return mergeWith({}, state, {[type]: {[key]: newEntity}}, customizer());
 }
 
 export default function entityReducer(state = initialState, action) {

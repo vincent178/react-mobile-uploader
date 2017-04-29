@@ -91,7 +91,7 @@ export function likeGallery(slug) {
     if (res.status === 200 || 204) {
 
       dispatch(updateGallery(slug, {meta: {
-        isLiked: true
+        is_liked: true
       }}));
 
     } else {
