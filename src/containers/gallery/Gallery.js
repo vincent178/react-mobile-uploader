@@ -24,9 +24,9 @@ class Gallery extends Component {
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, match: { params } } = this.props;
 
-    dispatch(fetchGallery('6042f9a9-0ae8-4c50-a0f5-13b4084c0f6e'))
+    dispatch(fetchGallery(params.slug))
       .then(() => {
         this.setState({loading: false})
       })
@@ -62,9 +62,9 @@ class Gallery extends Component {
 
   handlePhotoClick(photo) {
 
-    const { entity: { galleries } } = this.props;
+    const { entity: { galleries }, match: { params } } = this.props;
 
-    const slug = '6042f9a9-0ae8-4c50-a0f5-13b4084c0f6e';
+    const slug = params.slug;
     const gallery = galleries[slug];
     const urls = gallery.photos.map(_ => _.photo_url);
 
@@ -81,9 +81,9 @@ class Gallery extends Component {
   }
 
   renderGallery() {
-    const { entity: { galleries }, dispatch } = this.props;
+    const { entity: { galleries }, dispatch, match: { params } } = this.props;
 
-    const slug = '6042f9a9-0ae8-4c50-a0f5-13b4084c0f6e';
+    const slug = params.slug;
     const gallery = galleries[slug];
     const creator = gallery.creator;
     const meta = gallery.meta;
