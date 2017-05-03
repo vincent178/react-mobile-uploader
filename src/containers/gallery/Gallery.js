@@ -129,7 +129,7 @@ class Gallery extends React.PureComponent {
 
         }
         <div className="gallery-action">
-          <div className="m-circle gallery-action-button">
+          <div className="m-circle gallery-action-button" style={{background: isLiked ? "#fff" : "#1e6acf"}}>
 
             <LikeButton
               isLiked={isLiked}
