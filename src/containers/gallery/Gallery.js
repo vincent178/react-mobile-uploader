@@ -81,13 +81,14 @@ class Gallery extends Component {
   }
 
   renderGallery() {
-    const { entity: { galleries }, dispatch, match: { params } } = this.props;
+    const { entity: { galleries, users }, dispatch, match: { params } } = this.props;
 
     const slug = params.slug;
     const gallery = galleries[slug];
-    const creator = gallery.creator;
-    const meta = gallery.meta;
-    const isLiked = meta.is_liked;
+    const creator = users[gallery.creator];
+    const galleryMeta = gallery.meta;
+    const isLiked = galleryMeta.is_liked;
+    const userMeta = creator.meta;
 
     return (
       <div style={{background: 'white'}}>
@@ -115,7 +116,11 @@ class Gallery extends Component {
 
         <PlaceHolder />
 
-        <UserCard avatar={creator.avatar} name={creator.name} isMe={meta.is_me} isFollowing={meta.is_following}/>
+        <UserCard
+          avatar={creator.avatar}
+          name={creator.name}
+          isMe={galleryMeta.is_me}
+          isFollowing={userMeta.isFollowing} />
 
         <PlaceHolder />
 

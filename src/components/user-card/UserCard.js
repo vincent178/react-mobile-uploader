@@ -7,7 +7,8 @@ class UserCard extends React.Component {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
     isMe: PropTypes.bool.isRequired,
-    isFollowing: PropTypes.bool.isRequired
+    isFollowing: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired
   };
 
   render() {

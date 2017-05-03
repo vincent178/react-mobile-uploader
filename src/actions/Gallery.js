@@ -71,11 +71,18 @@ export function fetchGallery(slug) {
       credentials: 'same-origin'
     });
 
-    const jsonRes = await res.json();
+    if (res.status < 300) {
 
-    const normalized = normalize(jsonRes, GalleryEntity);
+      const jsonRes = await res.json();
 
-    dispatch(receiveGalleries(normalized.entities, [normalized.result]));
+      const normalized = normalize(jsonRes, GalleryEntity);
+      dispatch(receiveGalleries(normalized.entities, [normalized.result]));
+
+    } else {
+
+      console.log(`fetchGallery action error: ${slug} `);
+
+    }
   }
 }
 
@@ -88,7 +95,7 @@ export function likeGallery(slug) {
       credentials: 'same-origin'
     });
 
-    if (res.status === 200 || 204) {
+    if (res.status < 300) {
 
       dispatch(updateGallery(slug, {meta: {
         is_liked: true
