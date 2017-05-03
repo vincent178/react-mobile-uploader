@@ -9,14 +9,44 @@ function updateUser(id, data) {
   }
 }
 
+function getUser() {
+  return {
+    type: types.USER_GET
+  }
+}
+
 export function fetchMe() {
 
   return async dispatch => {
 
-    const res = await fetch(`/api/v1/users/me`);
+    const res = await fetch(`/api/v1/users/me`, {
+      credentials: 'same-origin'
+    });
 
-    const jsonRes = await res.json();
+    if (res.status < 300) {
+      dispatch(getUser())
+    } else {
+      console.log('fetchMe action error');
+    }
+  }
+}
 
+export function fetchUser(id) {
+
+  return async dispatch => {
+
+    const res = await fetch(`/api/v1/users/${id}`);
+
+    if (res.status < 300) {
+
+      const result = await res.json();
+
+      dispatch(getUser())
+
+    } else {
+
+      console.log(`fetchUser with: ${id} error`);
+    }
   }
 }
 
@@ -33,7 +63,7 @@ export function doFollow(id) {
 
       dispatch(updateUser(id, {
         meta: {
-          isFollowing: true
+          is_following: true
         }
       }));
 
@@ -56,7 +86,7 @@ export function doUnfollow(id) {
 
       dispatch(updateUser(id, {
         meta: {
-          isFollowing: false
+          is_following: false
         }
       }));
 

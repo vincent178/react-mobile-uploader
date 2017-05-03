@@ -86,8 +86,11 @@ class Gallery extends Component {
     const slug = params.slug;
     const gallery = galleries[slug];
     const creator = users[gallery.creator];
+
     const galleryMeta = gallery.meta;
     const isLiked = galleryMeta.is_liked;
+    const isFollowing = galleryMeta.is_following;
+    const isMe = galleryMeta.is_me;
     const userMeta = creator.meta;
 
     return (
@@ -117,10 +120,8 @@ class Gallery extends Component {
         <PlaceHolder />
 
         <UserCard
-          avatar={creator.avatar}
-          name={creator.name}
-          isMe={galleryMeta.is_me}
-          isFollowing={userMeta.isFollowing} />
+          user={creator}
+          dispatch={dispatch} />
 
         <PlaceHolder />
 
@@ -128,7 +129,7 @@ class Gallery extends Component {
 
         <PlaceHolder />
 
-        <div style={{height: '60px', width: '100%'}}></div>
+        <div style={{height: '60px', width: '100%'}} />
       </div>
     )
   }

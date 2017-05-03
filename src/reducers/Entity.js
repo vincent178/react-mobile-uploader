@@ -31,6 +31,10 @@ export default function entityReducer(state = initialState, action) {
     return updateEntity(state, 'galleries', action.slug, action.data);
   }
 
+  if (action.type === types.USER_UPDATE) {
+    return updateEntity(state, 'users', action.id, action.data);
+  }
+
   return state;
 }
 

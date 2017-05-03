@@ -1,25 +1,35 @@
 import React, {PropTypes} from 'react';
+import {doFollow, doUnfollow} from "../../actions/User";
 import './style.css';
 
 class UserCard extends React.Component {
 
   static propTypes = {
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-    isMe: PropTypes.bool.isRequired,
-    isFollowing: PropTypes.bool.isRequired,
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
   };
+
+  handleClick() {
+    const {user: {id, meta}, dispatch} = this.props;
+
+    if (meta.is_me) {
+
+    } else if (meta.is_following) {
+      dispatch(doUnfollow(id));
+    } else {
+      dispatch(doFollow(id));
+    }
+  }
 
   render() {
 
-    const {name, avatar, isMe, isFollowing} = this.props;
+    const {user: {meta, name, avatar}} = this.props;
 
     let actionText;
 
-    if (isMe) {
+    if (meta.is_me) {
       actionText = '我的';
-    } else if (isFollowing) {
+    } else if (meta.is_following) {
       actionText = '已关注';
     } else {
       actionText = '关注';
@@ -44,7 +54,7 @@ class UserCard extends React.Component {
               </div>
             </div>
 
-            <div className="m-action-button">
+            <div className="m-action-button" onClick={this.handleClick.bind(this)}>
               { actionText }
             </div>
 

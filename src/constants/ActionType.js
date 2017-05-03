@@ -26,3 +26,4 @@ export const APP_SET_WECHAT_BROWSER = 'APP_SET_WECHAT_BROWSER';
 export const APP_SET_CURRENT_USER = 'APP_SET_CURRENT_USER';
 
 export const USER_UPDATE = 'USER_UPDATE';
+export const USER_GET = 'USER_GET';
