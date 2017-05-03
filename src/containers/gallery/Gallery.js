@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import {fetchGallery} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
@@ -8,7 +8,7 @@ import ReplyInputCard from "../../components/reply-input-card/ReplyInputCard";
 import LikeButton from "../../components/like-button/LikeButton";
 
 
-class Gallery extends Component {
+class Gallery extends React.PureComponent {
 
   constructor(props) {
 
@@ -89,17 +89,34 @@ class Gallery extends Component {
 
     const galleryMeta = gallery.meta;
     const isLiked = galleryMeta.is_liked;
-    const isFollowing = galleryMeta.is_following;
-    const isMe = galleryMeta.is_me;
-    const userMeta = creator.meta;
 
     return (
       <div style={{background: 'white'}}>
         <h1 className="m-h1-title">{gallery.name}</h1>
         <div className="m-subtitle gallery-subtitle">
-          <span className="gallery-subtitle-text">{creator.name}</span>
-          ·
-          <span className="gallery-subtitle-text">{gallery.created_at}</span>
+          <div>
+
+            <span className="gallery-subtitle-text">
+              <i className="fa fa-thumbs-up" aria-hidden="true" />
+              {gallery.like_count}
+            </span>
+
+            <span className="gallery-subtitle-text">
+              <i className="fa fa-eye" aria-hidden="true" />
+              {gallery.pv_count}
+            </span>
+
+            <span className="gallery-subtitle-text">
+              <i className="fa fa-comment" aria-hidden="true" />
+              {gallery.comment_count}
+            </span>
+          </div>
+
+          <div>
+            <span className="gallery-subtitle-text">{creator.name}</span>
+            ·
+            <span className="gallery-subtitle-text">{gallery.created_at}</span>
+          </div>
         </div>
         {
           gallery && gallery.photos && gallery.photos.length > 0
@@ -113,7 +130,12 @@ class Gallery extends Component {
         }
         <div className="gallery-action">
           <div className="m-circle gallery-action-button">
-            <LikeButton isLiked={isLiked} dispatch={dispatch} id={slug} />
+
+            <LikeButton
+              isLiked={isLiked}
+              dispatch={dispatch}
+              id={slug} />
+
           </div>
         </div>
 

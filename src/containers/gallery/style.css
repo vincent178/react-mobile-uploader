@@ -19,8 +19,15 @@
 
 .gallery-subtitle {
   margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 12px;
 }
 
 .gallery-subtitle-text {
   margin: 0 5px;
+}
+
+.gallery-subtitle-text i {
+  margin-right: 4px;
 }

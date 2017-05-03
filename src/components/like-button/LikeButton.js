@@ -3,7 +3,7 @@ import like from '../../components/icons/like.png';
 import liked from '../../components/icons/liked.png';
 import {likeGallery, unlikeGallery} from '../../actions/Gallery';
 
-export default class LikeButton extends React.Component {
+export default class LikeButton extends React.PureComponent {
 
   static propTypes = {
     isLiked: PropTypes.bool.isRequired,
