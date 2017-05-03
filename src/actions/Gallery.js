@@ -102,12 +102,30 @@ export function likeGallery(slug) {
       }}));
 
     } else {
-
       console.log('likeGallery action error');
+    }
+  }
+}
 
+export function unlikeGallery(slug) {
+
+  return async dispatch => {
+
+    const res = await fetch(`/api/v1/galleries/${slug}/unlike`, {
+      method: 'POST',
+      credentials: 'same-origin'
+    });
+
+    if (res.status < 300) {
+
+      dispatch(updateGallery(slug, {meta: {
+        is_liked: false
+      }}));
+
+    } else {
+      console.log('unlikeGallery action error');
     }
 
-  }
-
+  };
 }
 

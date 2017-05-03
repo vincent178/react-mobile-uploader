@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import like from '../../components/icons/like.png';
 import liked from '../../components/icons/liked.png';
-import {likeGallery} from '../../actions/Gallery';
+import {likeGallery, unlikeGallery} from '../../actions/Gallery';
 
 export default class LikeButton extends React.Component {
 
@@ -16,7 +16,9 @@ export default class LikeButton extends React.Component {
 
     const {isLiked, dispatch, id} = this.props;
 
-    if (!isLiked) {
+    if (isLiked) {
+      dispatch(unlikeGallery(id));
+    } else {
       dispatch(likeGallery(id));
     }
   }
