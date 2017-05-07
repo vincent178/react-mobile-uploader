@@ -7,6 +7,7 @@ import "./style.css";
 import PlaceHolder from "../../components/placeholder/PlaceHolder";
 import ReplyInputCard from "../../components/reply-input-card/ReplyInputCard";
 import LikeButton from "../../components/like-button/LikeButton";
+import SpinnerCircle from '../../components/spinner-circle/SpinnerCircle';
 
 
 class Gallery extends React.PureComponent {
@@ -77,7 +78,11 @@ class Gallery extends React.PureComponent {
   }
 
   renderLoading() {
-    return <div>is loading</div>
+    return (
+      <div className="m-spinner">
+        <SpinnerCircle width={30} color={"rgb(102, 117, 127)"} />
+      </div>
+    );
   }
 
   renderGallery() {
