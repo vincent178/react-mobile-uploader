@@ -42,6 +42,9 @@ export default function entityReducer(state = initialState, action) {
 
   if (action.type === types.GALLERY_COMMENTS_LIST) {
     state = updateAndInsertEntity(state, 'galleries', action.slug, 'comments', action.comments);
+    state = updateEntity(state, 'galleries', action.slug, {
+      comment_count: state['galleries'][action.slug]['comments'].length
+    });
   }
 
   if (action.entities) {
