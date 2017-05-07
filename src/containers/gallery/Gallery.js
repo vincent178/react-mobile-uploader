@@ -152,6 +152,7 @@ class Gallery extends React.PureComponent {
 
         <PlaceHolder />
 
+        <div className="gallery-comment-count">{`最新评论 ${gallery.comment_count}`}</div>
         {
           gallery && gallery.comments && gallery.comments.length > 0
             ?

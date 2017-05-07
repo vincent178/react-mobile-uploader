@@ -63,9 +63,13 @@ export default class NavigationBar extends Component {
 
 
   render() {
+
     const { submitDisabled } = this.state;
 
+
     const { app: { navigationBarTitle, submitButtonTitle } } = this.props;
+
+    const showButton = window.location.pathname === '/compose';
 
     const buttonStyle = {
       background: submitDisabled ? "#ccc": null
@@ -78,13 +82,19 @@ export default class NavigationBar extends Component {
           <div className="navigation-logo" />
 
           <div>{ navigationBarTitle ? navigationBarTitle : null }</div>
-          
-          <div className="navigation-submit"
-               onClick={this.handleSubmit}
-               style={buttonStyle}
-          >
-            { submitButtonTitle ? submitButtonTitle : '发布' }
-          </div>
+
+          {
+            showButton ?
+              (
+                <div className="navigation-submit"
+                     onClick={this.handleSubmit}
+                     style={buttonStyle}>
+                  { submitButtonTitle ? submitButtonTitle : '发布' }
+                </div>
+              )
+              : null
+          }
+
         </div>
       </div>
     );

@@ -15,7 +15,7 @@ export default class TabBar extends Component {
           <a href="/">
             <img src={home} alt="" width={27} height={27} />
           </a>
-          <a href="/galleries/dce60d96-ca7d-4778-bb9b-acd94f39ffdc">
+          <a href="/users?scope=recommend">
             <img src={users} alt="" width={27} height={27} />
           </a>
           <a href="/compose">

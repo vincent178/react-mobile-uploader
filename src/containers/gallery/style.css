@@ -31,3 +31,14 @@
 .gallery-subtitle-text i {
   margin-right: 4px;
 }
+
+.gallery-comment-count {
+  height: 32px;
+  line-height: 32px;
+  font-size: 13px;
+  color: #404040;
+  padding: 0 0 0 25px;
+  background: #fff;
+  border-bottom: 1px solid #f4f4f4;
+  text-align: left;
+}

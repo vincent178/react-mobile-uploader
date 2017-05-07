@@ -19,7 +19,7 @@ class Compose extends Component {
 
   render() {
     return (
-      <div className="m-container">
+      <div className="m-container" style={{background: '#fff'}}>
         <TextInput {...this.props} handleInput={this.handleInput} />
         <ImageList {...this.props} />
       </div>

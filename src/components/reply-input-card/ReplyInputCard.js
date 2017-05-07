@@ -42,7 +42,7 @@ class ReplyInputCard extends React.PureComponent {
                     cols="25"
                     rows="3"
                     placeholder="请输入评论内容"
-                    onChange={this.handleTextInput.bind(this)} />
+                    onChange={this.handleTextInput.bind(this)}
                     value={this.state.comment} />
         </div>
 
