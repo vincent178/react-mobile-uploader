@@ -14,3 +14,6 @@ export const GalleryEntity = new schema.Entity('galleries', { creator: UserEntit
   idAttribute: 'slug'
 });
 
+export const CommentEntity = new schema.Entity('comments');
+export const CommentListSchema = new schema.Array(CommentEntity);
+

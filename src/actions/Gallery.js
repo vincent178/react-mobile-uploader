@@ -2,7 +2,7 @@ import "isomorphic-fetch";
 import {galleryFormClear} from "./GalleryForm";
 import * as types from "../constants/ActionType";
 import {normalize} from "normalizr";
-import {GalleryEntity} from "../constants/Schema";
+import {GalleryEntity, CommentListSchema} from "../constants/Schema";
 
 function receiveGalleries(entities, galleries) {
 
@@ -20,6 +20,16 @@ function updateGallery(slug, data) {
     type: types.UPDATE_GALLERY,
     slug,
     data
+  }
+}
+
+function receiveGalleryComments(slug, entities, comments) {
+
+  return {
+    type: types.GALLERY_COMMENTS_LIST,
+    slug,
+    entities,
+    comments
   }
 }
 
@@ -74,7 +84,6 @@ export function fetchGallery(slug) {
     if (res.status < 300) {
 
       const jsonRes = await res.json();
-
       const normalized = normalize(jsonRes, GalleryEntity);
       dispatch(receiveGalleries(normalized.entities, [normalized.result]));
 
@@ -127,5 +136,50 @@ export function unlikeGallery(slug) {
     }
 
   };
+}
+
+export function createGalleryComment(slug, content) {
+
+  return async dispatch => {
+
+    const body = {
+      content
+    };
+
+    const res = await fetch(`/api/v1/galleries/${slug}/comments`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+      credentials: 'same-origin'
+    });
+
+    if (res.status < 300) {
+    } else {
+      console.log('createGalleryComment action error');
+    }
+
+  };
+}
+
+export function fetchGalleryComments(slug) {
+
+  return async dispatch => {
+
+    const res = await fetch(`/api/v1/galleries/${slug}/comments`);
+
+    if (res.status < 300) {
+
+      const jsonRes = await res.json();
+      const normalized = normalize(jsonRes, CommentListSchema);
+      debugger;
+      dispatch(receiveGalleryComments(slug, normalized.entities, normalized.result));
+
+    } else {
+      console.log('fetchGalleryComments action error');
+    }
+  }
 }
 

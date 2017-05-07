@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {fetchGallery} from "../../actions/Gallery";
+import {fetchGallery,fetchGalleryComments} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
 import "./style.css";
 import PlaceHolder from "../../components/placeholder/PlaceHolder";
@@ -23,14 +23,13 @@ class Gallery extends React.PureComponent {
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { dispatch, match: { params } } = this.props;
 
-    dispatch(fetchGallery(params.slug))
-      .then(() => {
-        this.setState({loading: false})
-      })
+    await dispatch(fetchGallery(params.slug));
+    await dispatch(fetchGalleryComments(params.slug));
 
+    this.setState({loading: false});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -81,7 +80,7 @@ class Gallery extends React.PureComponent {
   }
 
   renderGallery() {
-    const { entity: { galleries, users }, dispatch, match: { params } } = this.props;
+    const { entity: { galleries, users, comments }, dispatch, match: { params } } = this.props;
 
     const slug = params.slug;
     const gallery = galleries[slug];
@@ -147,9 +146,16 @@ class Gallery extends React.PureComponent {
 
         <PlaceHolder />
 
-        <ReplyInputCard />
+        <ReplyInputCard slug={slug}
+                        dispatch={dispatch} />
 
         <PlaceHolder />
+
+        {
+          gallery && gallery.comments && gallery.comments.length > 0
+            ? gallery.comments.map(commentId => <h1>{commentId}</h1>)
+            : null
+        }
 
         <div style={{height: '60px', width: '100%'}} />
       </div>
