@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
-import {fetchGallery,fetchGalleryComments} from "../../actions/Gallery";
+import {fetchGallery, fetchGalleryComments} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
-import ReplyCard from '../../components/reply-card/ReplyCard';
+import ReplyCard from "../../components/reply-card/ReplyCard";
 import "./style.css";
 import PlaceHolder from "../../components/placeholder/PlaceHolder";
 import ReplyInputCard from "../../components/reply-input-card/ReplyInputCard";
 import LikeButton from "../../components/like-button/LikeButton";
-import SpinnerCircle from '../../components/spinner-circle/SpinnerCircle';
+import SpinnerCircle from "../../components/spinner-circle/SpinnerCircle";
 
 
 class Gallery extends React.PureComponent {
