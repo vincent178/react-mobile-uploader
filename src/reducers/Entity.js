@@ -31,7 +31,7 @@ function updateAndInsertEntity(state, type, key, property, data) {
   if (typeof oldPropertyValue === 'undefined') {
     newEntity = _.merge({}, state[type][key], {[property]: data});
   } else {
-    const newPropertyValue = _.concat(data, oldPropertyValue);
+    const newPropertyValue = _.uniq(_.compact(_.concat(data, oldPropertyValue)));
     newEntity = _.merge({}, state[type][key], {[property]: newPropertyValue});
   }
 

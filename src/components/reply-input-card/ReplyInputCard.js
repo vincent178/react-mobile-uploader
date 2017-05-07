@@ -13,7 +13,7 @@ class ReplyInputCard extends React.PureComponent {
     super(props);
 
     this.state = {
-      comment: null
+      comment: ""
     }
   }
 
@@ -25,11 +25,12 @@ class ReplyInputCard extends React.PureComponent {
     const { dispatch, slug } = this.props;
     const { comment } = this.state;
 
-    if (comment === null || typeof comment === 'undefined') {
+    if (comment === null || typeof comment === 'undefined' || comment === "") {
       return;
     }
 
-    dispatch(createGalleryComment(slug, comment));
+    dispatch(createGalleryComment(slug, comment))
+      .then(() => this.setState({comment: ""}));
   }
   
   render() {
@@ -42,6 +43,7 @@ class ReplyInputCard extends React.PureComponent {
                     rows="3"
                     placeholder="请输入评论内容"
                     onChange={this.handleTextInput.bind(this)} />
+                    value={this.state.comment} />
         </div>
 
         <div className="m-action-button reply-button"

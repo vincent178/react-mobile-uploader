@@ -2,7 +2,7 @@ import "isomorphic-fetch";
 import {galleryFormClear} from "./GalleryForm";
 import * as types from "../constants/ActionType";
 import {normalize} from "normalizr";
-import {GalleryEntity, CommentListSchema} from "../constants/Schema";
+import {GalleryEntity, CommentListSchema, CommentEntity} from "../constants/Schema";
 
 function receiveGalleries(entities, galleries) {
 
@@ -157,6 +157,11 @@ export function createGalleryComment(slug, content) {
     });
 
     if (res.status < 300) {
+
+      const jsonRes = await res.json();
+      const normalized = normalize(jsonRes, CommentEntity);
+      dispatch(receiveGalleryComments(slug, normalized.entities, [normalized.result]));
+
     } else {
       console.log('createGalleryComment action error');
     }
@@ -174,7 +179,6 @@ export function fetchGalleryComments(slug) {
 
       const jsonRes = await res.json();
       const normalized = normalize(jsonRes, CommentListSchema);
-      debugger;
       dispatch(receiveGalleryComments(slug, normalized.entities, normalized.result));
 
     } else {

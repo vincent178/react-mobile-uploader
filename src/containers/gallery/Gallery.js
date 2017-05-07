@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {fetchGallery,fetchGalleryComments} from "../../actions/Gallery";
 import UserCard from "../../components/user-card/UserCard";
+import ReplyCard from '../../components/reply-card/ReplyCard';
 import "./style.css";
 import PlaceHolder from "../../components/placeholder/PlaceHolder";
 import ReplyInputCard from "../../components/reply-input-card/ReplyInputCard";
@@ -153,7 +154,11 @@ class Gallery extends React.PureComponent {
 
         {
           gallery && gallery.comments && gallery.comments.length > 0
-            ? gallery.comments.map(commentId => <h1>{commentId}</h1>)
+            ?
+            gallery.comments.map(commentId => {
+              const comment = comments[commentId];
+              return <ReplyCard comment={comment} key={comment.id} />
+            })
             : null
         }
 
