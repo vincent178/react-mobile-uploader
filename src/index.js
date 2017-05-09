@@ -19,3 +19,17 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
+
+if (module.hot) {
+  module.host.accept('./containers/app/App', () => {
+    
+    const NextApp = require('./containers/app/App').default;
+    
+    ReactDOM.render(
+      <Provider store={store} >
+        <NextApp />
+      </Provider>,
+      document.getElementById('root')
+    );
+  });
+}
